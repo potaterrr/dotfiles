@@ -1,9 +1,0 @@
-[Libinput][1267][47][Elan Touchpad]
-NaturalScroll=true
-
-[Libinput][1267][47][Elan TrackPoint]
-NaturalScroll=false
-
-[Mouse]
-cursorSize=32
-cursorTheme=material_light_cursors

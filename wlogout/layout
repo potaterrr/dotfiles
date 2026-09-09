@@ -1,27 +1,36 @@
-[
-    {
-        "label": "lock",
-        "action": "hyprctl dispatch exit",
-        "text": "Lock",
-        "keybind": "l"
-    },
-    {
-        "label": "logout",
-        "action": "hyprctl dispatch exit",
-        "text": "Logout",
-        "keybind": "e"
-    },
-    {
-        "label": "reboot",
-        "action": "systemctl reboot",
-        "text": "Reboot",
-        "keybind": "r"
-    },
-    {
-        "label": "shutdown",
-        "action": "systemctl poweroff",
-        "text": "Shutdown",
-        "keybind": "s"
-    }
-]
-
+{
+    "label" : "lock",
+    "action" : "swaylock",
+    "text" : "Lock",
+    "keybind" : "l"
+}
+{
+    "label" : "logout",
+    "action" : "loginctl terminate-user $USER",
+    "text" : "Logout",
+    "keybind" : "e"
+}
+{
+    "label" : "suspend",
+    "action" : "systemctl suspend",
+    "text" : "Suspend",
+    "keybind" : "u"
+}
+{
+    "label" : "shutdown",
+    "action" : "systemctl poweroff",
+    "text" : "Shutdown",
+    "keybind" : "s"
+}
+{
+    "label" : "reboot",
+    "action" : "systemctl reboot",
+    "text" : "Reboot",
+    "keybind" : "r"
+}
+{
+    "label" : "potato",
+    "action" : "notify-send '🥔 POTATO MODE' 'System powered by high-starch energy.'",
+    "text" : "🥔 Potato",
+    "keybind" : "p"
+}

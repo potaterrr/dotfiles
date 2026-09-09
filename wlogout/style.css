@@ -1,47 +1,126 @@
-/* ~/.config/wlogout/style.css */
-
-/* Catppuccin Mocha Palette */
-@define-color base     #1e1e2e;
-@define-color mantle   #181825;
-@define-color text     #cdd6f4;
-@define-color mauve    #cba6f7;
-@define-color surface0 #313244;
-@define-color surface1 #45475a;
-
 * {
-    font-family: "JetBrainsMono Nerd Font", sans-serif;
+    font-family: "JetBrainsMono Nerd Font", monospace;
     font-size: 14px;
     font-weight: bold;
-    background-image: none;
-    transition: 200ms all ease-in-out;
 }
 
-/* Fullscreen Background Blur Overlay */
 window {
-    background-color: rgba(24, 24, 37, 0.75);
+    background-color: rgba(30, 30, 46, 0.85);
 }
 
-/* Layout Button grid configurations */
 button {
-    color: @text;
-    background-color: @surface0;
-    border: 2px solid @surface1;
-    border-radius: 12px;
-    margin: 15px;
-    padding: 20px;
+    background-color: #181825;
+    border: 2px solid #313244;
+    color: #cdd6f4;
+    border-radius: 16px;
+    margin: 20px;
+    background-repeat: no-repeat;
+    background-position: center 30%;
+    background-size: 48px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+    transition: all 0.2s ease-in-out;
 }
 
-button:focus,
 button:hover {
-    background-color: @mauve;
-    color: @base;
-    border: 2px solid @mauve;
-    box-shadow: 0 0 15px rgba(203, 166, 247, 0.4);
+    background-color: #313244;
+    border: 2px solid #cba6f7;
+    color: #cba6f7;
+    border-radius: 22px;
+    box-shadow: 0 6px 16px rgba(203, 166, 247, 0.2);
 }
 
-/* Optional Text label tweaks inside buttons */
-box {
-    margin: 5px;
+#cat:hover {
+    border: 2px solid #fab387;
+    color: #fab387;
+    box-shadow: 0 6px 16px rgba(250, 179, 135, 0.2);
 }
 
+/* Use absolute paths to guarantee GTK finds the icons */
+#lock {
+    background-image: url("/home/kristiandyan/.config/wlogout/icons/lock.svg");
+}
 
+#logout {
+    background-image: url("/home/kristiandyan/.config/wlogout/icons/logout.svg");
+}
+
+#suspend {
+    background-image: url("/home/kristiandyan/.config/wlogout/icons/suspend.svg");
+}
+
+#shutdown {
+    background-image: url("/home/kristiandyan/.config/wlogout/icons/shutdown.svg");
+}
+
+#reboot {
+    background-image: url("/home/kristiandyan/.config/wlogout/icons/reboot.svg");
+}
+
+#cat {
+    background-image: url("/home/kristiandyan/.config/wlogout/icons/cat.svg");
+}
+
+#cat {
+    background-image: url("/home/kristiandyan/.config/wlogout/icons/cat.svg");
+    background-size: 64px;
+    background-position: center 22%;
+}
+
+/* Brand Potato Button Styling */
+#potato {
+    background-image: url("/home/kristiandyan/.config/wlogout/icons/potato.svg");
+    background-size: 56px;
+    background-position: center 25%;
+}
+
+#potato:hover {
+    background-color: #313244;
+    border: 2px solid #f9e2af; /* Catppuccin Yellow */
+    color: #f9e2af;
+    background-size: 64px;     /* Grows smoothly on hover */
+    box-shadow: 0 8px 20px rgba(249, 226, 175, 0.25);
+    animation: bounce 0.4s ease infinite alternate;
+}
+
+#potato {
+    background-image: url("/home/kristiandyan/.config/wlogout/icons/potato.svg");
+    background-size: 52px;
+    background-position: center 25%;
+    /* Forces crisp anti-aliasing on the SVG render */
+    background-repeat: no-repeat;
+}
+
+#potato {
+    background-image: url("/home/kristiandyan/.config/wlogout/icons/potato.svg");
+    background-size: 36px;        /* Matches the native crisp size of your other icons */
+    background-position: center 25%;
+}
+
+/* Fallback to native text/emoji scaling for absolute crispness */
+#potato {
+    background-image: none;
+}
+
+#potato:hover {
+    background-color: #313244;
+    border: 2px solid #f9e2af;
+    color: #f9e2af;
+    box-shadow: 0 8px 20px rgba(249, 226, 175, 0.25);
+    animation: bounce 0.4s ease infinite alternate;
+}
+
+#potato {
+    background-image: url("/home/kristiandyan/.config/wlogout/icons/potato.svg");
+    background-size: 42px;
+    background-position: center 25%;
+    background-repeat: no-repeat;
+}
+
+#potato:hover {
+    background-color: #313244;
+    border: 2px solid #f9e2af;
+    color: #f9e2af;
+    background-size: 48px;
+    box-shadow: 0 8px 20px rgba(249, 226, 175, 0.25);
+    animation: bounce 0.4s ease infinite alternate;
+}
