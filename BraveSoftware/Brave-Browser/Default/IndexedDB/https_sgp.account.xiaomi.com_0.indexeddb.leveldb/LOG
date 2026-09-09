@@ -1,0 +1,10 @@
+2026/08/21-18:31:42.247 12bd0 Creating DB /home/kristiandyan/.config/BraveSoftware/Brave-Browser/Default/IndexedDB/https_sgp.account.xiaomi.com_0.indexeddb.leveldb since it was missing.
+2026/08/21-18:31:42.252 12bd0 Reusing MANIFEST /home/kristiandyan/.config/BraveSoftware/Brave-Browser/Default/IndexedDB/https_sgp.account.xiaomi.com_0.indexeddb.leveldb/MANIFEST-000001
+2026/08/21-18:31:42.292 12bd2 Level-0 table #5: started
+2026/08/21-18:31:42.295 12bd2 Level-0 table #5: 785 bytes OK
+2026/08/21-18:31:42.297 12bd2 Delete type=0 #3
+2026/08/21-18:31:42.298 12bd2 Manual compaction at level-0 from '\x00\x01\x00\x00\x00' @ 72057594037927935 : 1 .. '\x00\x02\x00\x00\x00' @ 0 : 0; will stop at (end)
+2026/08/21-18:31:50.823 12bd0 Level-0 table #7: started
+2026/08/21-18:31:50.829 12bd0 Level-0 table #7: 3630 bytes OK
+2026/08/21-18:31:50.832 12bd0 Delete type=0 #4
+2026/08/21-18:31:50.834 12bd0 Manual compaction at level-0 from '\x00\x04\x00\x00\x00' @ 72057594037927935 : 1 .. '\x00\x05\x00\x00\x00' @ 0 : 0; will stop at (end)

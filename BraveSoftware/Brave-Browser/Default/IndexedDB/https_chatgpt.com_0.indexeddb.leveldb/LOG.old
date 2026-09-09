@@ -1,0 +1,6 @@
+2026/08/25-13:53:06.005 a0c Creating DB /home/kristiandyan/.config/BraveSoftware/Brave-Browser/Default/IndexedDB/https_chatgpt.com_0.indexeddb.leveldb since it was missing.
+2026/08/25-13:53:06.018 a0c Reusing MANIFEST /home/kristiandyan/.config/BraveSoftware/Brave-Browser/Default/IndexedDB/https_chatgpt.com_0.indexeddb.leveldb/MANIFEST-000001
+2026/08/25-13:53:15.500 a0a Level-0 table #5: started
+2026/08/25-13:53:15.502 a0a Level-0 table #5: 1673 bytes OK
+2026/08/25-13:53:15.506 a0a Delete type=0 #3
+2026/08/25-13:53:15.506 a0a Manual compaction at level-0 from (begin) .. (end); will stop at (end)

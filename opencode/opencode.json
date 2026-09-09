@@ -1,0 +1,40 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "provider": {
+    "ollama": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "Ollama",
+      "options": {
+        "baseURL": "http://localhost:11434/v1"
+      },
+      "models": {
+        "qwen-chat": {
+          "name": "qwen-chat"
+        }
+      }
+    }
+  },
+  "mcp": {
+    "n8n-mcp": {
+      "type": "remote",
+      "url": "http://127.0.0.1:3000/mcp",
+      "headers": {
+        "Authorization": "Bearer 39094f7f2c10a4ce34d01651ee307f24b019f13b435e543be618ff1517b64bd3"
+      },
+      "enabled": true
+    },
+    "make": {
+      "type": "remote",
+      "url": "https://us2.make.com/mcp/stateless",
+      "headers": {
+        "Authorization": "Bearer bf56a7ff-6cab-418d-b2cb-59f919c288de"
+      },
+      "enabled": true
+    },
+    "zapier": {
+      "type": "remote",
+      "url": "https://mcp.zapier.com/api/v1/connect",
+      "enabled": true
+    }
+  }
+}

@@ -1,0 +1,20 @@
+2026/08/21-18:30:25.118 12be9 Creating DB /home/kristiandyan/.config/BraveSoftware/Brave-Browser/Default/IndexedDB/https_account.xiaomi.com_0.indexeddb.leveldb since it was missing.
+2026/08/21-18:30:25.124 12be9 Reusing MANIFEST /home/kristiandyan/.config/BraveSoftware/Brave-Browser/Default/IndexedDB/https_account.xiaomi.com_0.indexeddb.leveldb/MANIFEST-000001
+2026/08/21-18:30:25.135 12be9 Level-0 table #5: started
+2026/08/21-18:30:25.143 12be9 Level-0 table #5: 772 bytes OK
+2026/08/21-18:30:25.146 12be9 Delete type=0 #3
+2026/08/21-18:30:25.147 12be9 Manual compaction at level-0 from '\x00\x01\x00\x00\x00' @ 72057594037927935 : 1 .. '\x00\x02\x00\x00\x00' @ 0 : 0; will stop at (end)
+2026/08/21-18:30:29.195 12beb Level-0 table #7: started
+2026/08/21-18:30:29.197 12beb Level-0 table #7: 3473 bytes OK
+2026/08/21-18:30:29.200 12beb Delete type=0 #4
+2026/08/21-18:30:29.200 12bd2 Manual compaction at level-0 from '\x00\x04\x00\x00\x00' @ 72057594037927935 : 1 .. '\x00\x05\x00\x00\x00' @ 0 : 0; will stop at (end)
+2026/08/21-18:31:53.544 12bea Level-0 table #9: started
+2026/08/21-18:31:53.546 12bea Level-0 table #9: 2074 bytes OK
+2026/08/21-18:31:53.551 12bea Delete type=0 #6
+2026/08/21-18:31:53.551 12beb Manual compaction at level-0 from '\x00\x05\x00\x00\x00' @ 72057594037927935 : 1 .. '\x00\x06\x00\x00\x00' @ 0 : 0; will stop at '\x00\x05\x00\x00\x05' @ 197 : 1
+2026/08/21-18:31:53.552 12beb Compacting 1@0 + 1@1 files
+2026/08/21-18:31:53.554 12beb Generated table #10@0: 89 keys, 2193 bytes
+2026/08/21-18:31:53.554 12beb Compacted 1@0 + 1@1 files => 2193 bytes
+2026/08/21-18:31:53.556 12beb compacted to: files[ 0 1 1 0 0 0 0 ]
+2026/08/21-18:31:53.557 12beb Delete type=2 #9
+2026/08/21-18:31:53.557 12bec Manual compaction at level-0 from '\x00\x05\x00\x00\x05' @ 197 : 1 .. '\x00\x06\x00\x00\x00' @ 0 : 0; will stop at (end)

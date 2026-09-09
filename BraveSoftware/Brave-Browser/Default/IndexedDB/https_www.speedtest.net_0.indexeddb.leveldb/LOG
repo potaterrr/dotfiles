@@ -1,0 +1,6 @@
+2026/08/18-18:15:22.421 999 Creating DB /home/kristiandyan/.config/BraveSoftware/Brave-Browser/Default/IndexedDB/https_www.speedtest.net_0.indexeddb.leveldb since it was missing.
+2026/08/18-18:15:22.427 999 Reusing MANIFEST /home/kristiandyan/.config/BraveSoftware/Brave-Browser/Default/IndexedDB/https_www.speedtest.net_0.indexeddb.leveldb/MANIFEST-000001
+2026/08/18-18:15:22.446 9d7 Level-0 table #5: started
+2026/08/18-18:15:22.448 9d7 Level-0 table #5: 1818 bytes OK
+2026/08/18-18:15:22.451 9d7 Delete type=0 #3
+2026/08/18-18:15:22.451 999 Manual compaction at level-0 from '\x00\x01\x00\x00\x00' @ 72057594037927935 : 1 .. '\x00\x02\x00\x00\x00' @ 0 : 0; will stop at (end)

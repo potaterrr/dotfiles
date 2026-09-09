@@ -1,0 +1,6 @@
+2026/08/25-21:33:30.260 a0a Reusing MANIFEST /home/kristiandyan/.config/BraveSoftware/Brave-Browser/Default/IndexedDB/https_app.clickup.com_0.indexeddb.leveldb/MANIFEST-000001
+2026/08/25-21:33:30.260 a0a Recovering log #10
+2026/08/25-21:33:30.263 a0a Reusing old log /home/kristiandyan/.config/BraveSoftware/Brave-Browser/Default/IndexedDB/https_app.clickup.com_0.indexeddb.leveldb/000010.log 
+2026/08/25-23:58:45.738 a0c Level-0 table #14: started
+2026/08/25-23:58:45.755 a0c Level-0 table #14: 1879220 bytes OK
+2026/08/25-23:58:45.769 a0c Delete type=0 #10

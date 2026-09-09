@@ -1,0 +1,11 @@
+{
+  "hardwareAcceleration": true,
+  "tempPath": "/tmp",
+  "openInExistingWindow": false,
+  "askBeforeClosing": false,
+  "minimizeToTray": false,
+  "checkForUpdates": true,
+  "skipPatch": false,
+  "autoDownload": false,
+  "channel": "stable"
+}

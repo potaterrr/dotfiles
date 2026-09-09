@@ -1,0 +1,47 @@
+/* ~/.config/wlogout/style.css */
+
+/* Catppuccin Mocha Palette */
+@define-color base     #1e1e2e;
+@define-color mantle   #181825;
+@define-color text     #cdd6f4;
+@define-color mauve    #cba6f7;
+@define-color surface0 #313244;
+@define-color surface1 #45475a;
+
+* {
+    font-family: "JetBrainsMono Nerd Font", sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    background-image: none;
+    transition: 200ms all ease-in-out;
+}
+
+/* Fullscreen Background Blur Overlay */
+window {
+    background-color: rgba(24, 24, 37, 0.75);
+}
+
+/* Layout Button grid configurations */
+button {
+    color: @text;
+    background-color: @surface0;
+    border: 2px solid @surface1;
+    border-radius: 12px;
+    margin: 15px;
+    padding: 20px;
+}
+
+button:focus,
+button:hover {
+    background-color: @mauve;
+    color: @base;
+    border: 2px solid @mauve;
+    box-shadow: 0 0 15px rgba(203, 166, 247, 0.4);
+}
+
+/* Optional Text label tweaks inside buttons */
+box {
+    margin: 5px;
+}
+
+

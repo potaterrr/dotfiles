@@ -1,0 +1,18 @@
+2026/08/27-21:21:50.481 a7b Creating DB /home/kristiandyan/.config/BraveSoftware/Brave-Browser/Default/IndexedDB/https_chat.z.ai_0.indexeddb.leveldb since it was missing.
+2026/08/27-21:21:50.487 a7b Reusing MANIFEST /home/kristiandyan/.config/BraveSoftware/Brave-Browser/Default/IndexedDB/https_chat.z.ai_0.indexeddb.leveldb/MANIFEST-000001
+2026/08/27-21:21:50.700 a7d Level-0 table #5: started
+2026/08/27-21:21:50.705 a7d Level-0 table #5: 1110 bytes OK
+2026/08/27-21:21:50.707 a7d Delete type=0 #3
+2026/08/27-21:21:50.707 a7b Manual compaction at level-0 from '\x00\x01\x00\x00\x00' @ 72057594037927935 : 1 .. '\x00\x02\x00\x00\x00' @ 0 : 0; will stop at (end)
+2026/08/27-21:21:52.713 a7d Level-0 table #7: started
+2026/08/27-21:21:52.716 a7d Level-0 table #7: 249 bytes OK
+2026/08/27-21:21:52.719 a7d Delete type=0 #4
+2026/08/27-21:21:52.720 a7d Manual compaction at level-0 from (begin) .. (end); will stop at (end)
+2026/08/27-21:21:52.720 a7d Manual compaction at level-1 from (begin) .. (end); will stop at '\x00\x00\x00\x002\x02\x01\x01\x00\x00\x00\x00\x00\x00\x00\x00' @ 66 : 0
+2026/08/27-21:21:52.721 a7d Compacting 1@1 + 1@2 files
+2026/08/27-21:21:52.723 a7d Generated table #8@1: 6 keys, 268 bytes
+2026/08/27-21:21:52.723 a7d Compacted 1@1 + 1@2 files => 268 bytes
+2026/08/27-21:21:52.726 a7d compacted to: files[ 0 0 1 0 0 0 0 ]
+2026/08/27-21:21:52.726 a7d Delete type=2 #5
+2026/08/27-21:21:52.727 a7d Delete type=2 #7
+2026/08/27-21:21:52.727 a7d Manual compaction at level-1 from '\x00\x00\x00\x002\x02\x01\x01\x00\x00\x00\x00\x00\x00\x00\x00' @ 66 : 0 .. (end); will stop at (end)

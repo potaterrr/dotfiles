@@ -1,0 +1,6 @@
+2026/08/18-01:06:43.473 999 Creating DB /home/kristiandyan/.config/BraveSoftware/Brave-Browser/Default/IndexedDB/https_mail.yahoo.com_0.indexeddb.leveldb since it was missing.
+2026/08/18-01:06:43.479 999 Reusing MANIFEST /home/kristiandyan/.config/BraveSoftware/Brave-Browser/Default/IndexedDB/https_mail.yahoo.com_0.indexeddb.leveldb/MANIFEST-000001
+2026/08/18-16:41:36.452 9d7 Level-0 table #5: started
+2026/08/18-16:41:36.454 9d7 Level-0 table #5: 9745 bytes OK
+2026/08/18-16:41:36.457 9d7 Delete type=0 #3
+2026/08/18-16:41:36.457 99a Manual compaction at level-0 from (begin) .. (end); will stop at (end)

@@ -1,0 +1,6 @@
+2026/08/25-18:26:46.565 a0a Creating DB /home/kristiandyan/.config/BraveSoftware/Brave-Browser/Default/IndexedDB/https_claude.ai_0.indexeddb.leveldb since it was missing.
+2026/08/25-18:26:46.572 a0a Reusing MANIFEST /home/kristiandyan/.config/BraveSoftware/Brave-Browser/Default/IndexedDB/https_claude.ai_0.indexeddb.leveldb/MANIFEST-000001
+2026/08/25-18:26:51.138 a0c Level-0 table #5: started
+2026/08/25-18:26:51.141 a0c Level-0 table #5: 1310 bytes OK
+2026/08/25-18:26:51.144 a0c Delete type=0 #3
+2026/08/25-18:26:51.145 a0c Manual compaction at level-0 from (begin) .. (end); will stop at (end)

@@ -1,0 +1,6 @@
+2026/08/21-19:05:07.103 12bd0 Creating DB /home/kristiandyan/.config/BraveSoftware/Brave-Browser/Default/IndexedDB/https_mega.nz_0.indexeddb.leveldb since it was missing.
+2026/08/21-19:05:07.112 12bd0 Reusing MANIFEST /home/kristiandyan/.config/BraveSoftware/Brave-Browser/Default/IndexedDB/https_mega.nz_0.indexeddb.leveldb/MANIFEST-000001
+2026/08/21-19:05:09.202 12bd2 Level-0 table #5: started
+2026/08/21-19:05:09.213 12bd2 Level-0 table #5: 765 bytes OK
+2026/08/21-19:05:09.217 12bd2 Delete type=0 #3
+2026/08/21-19:05:09.217 12bd2 Manual compaction at level-0 from (begin) .. (end); will stop at (end)

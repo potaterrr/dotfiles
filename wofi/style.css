@@ -1,0 +1,65 @@
+/* ~/.config/wofi/style.css */
+
+/* Define Catppuccin Mocha Colors */
+@define-color base     #1e1e2e;
+@define-color mantle   #181825;
+@define-color surface0 #313244;
+@define-color surface1 #45475a;
+@define-color text     #cdd6f4;
+@define-color mauve    #cba6f7;
+@define-color lavender #b4befe;
+
+* {
+    font-family: "JetBrainsMono Nerd Font", sans-serif;
+    font-size: 14px;
+}
+
+/* Main Outer Window Wrapper */
+window {
+    margin: 0px;
+    border: 2px solid @mauve;
+    border-radius: 12px;
+    background-color: rgba(30, 30, 46, 0.65);
+    color: @text;
+}
+
+/* Inner Search Box Input Area */
+#input {
+    margin: 10px;
+    border: 1px solid @surface1;
+    border-radius: 8px;
+    padding: 8px;
+    background-color: @mantle;
+    color: @text;
+}
+
+#input:focus {
+    border: 1px solid @lavender;
+}
+
+/* Container Wrapper holding Resulting Entries */
+#scroll {
+    margin: 5px 10px 10px 10px;
+}
+
+/* Styling for Individual Search Results Rows */
+#entry {
+    padding: 8px;
+    border-radius: 8px;
+}
+
+#entry:nth-child(even) {
+    background-color: rgba(24, 24, 37, 0.3);
+}
+
+/* Focused Selected Item */
+#entry:selected {
+    background-color: @mauve;
+    color: @base;
+}
+
+/* Icons Inside the Search Result list */
+#img {
+    margin-right: 10px;
+}
+

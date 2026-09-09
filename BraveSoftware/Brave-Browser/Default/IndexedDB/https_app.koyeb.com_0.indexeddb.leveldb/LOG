@@ -1,0 +1,6 @@
+2026/09/03-16:50:22.854 a97 Creating DB /home/kristiandyan/.config/BraveSoftware/Brave-Browser/Default/IndexedDB/https_app.koyeb.com_0.indexeddb.leveldb since it was missing.
+2026/09/03-16:50:22.868 a97 Reusing MANIFEST /home/kristiandyan/.config/BraveSoftware/Brave-Browser/Default/IndexedDB/https_app.koyeb.com_0.indexeddb.leveldb/MANIFEST-000001
+2026/09/03-16:50:28.057 a2d Level-0 table #5: started
+2026/09/03-16:50:28.060 a2d Level-0 table #5: 1074 bytes OK
+2026/09/03-16:50:28.062 a2d Delete type=0 #3
+2026/09/03-16:50:28.063 a2d Manual compaction at level-0 from (begin) .. (end); will stop at (end)

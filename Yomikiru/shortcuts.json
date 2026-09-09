@@ -1,0 +1,306 @@
+[
+  {
+    "command": "navToPage",
+    "keys": [
+      "f"
+    ]
+  },
+  {
+    "command": "toggleZenMode",
+    "keys": [
+      "backquote"
+    ]
+  },
+  {
+    "command": "largeScroll",
+    "keys": [
+      "space"
+    ]
+  },
+  {
+    "command": "largeScrollReverse",
+    "keys": [
+      "shift+space"
+    ]
+  },
+  {
+    "command": "scrollDown",
+    "keys": [
+      "s",
+      "down"
+    ]
+  },
+  {
+    "command": "scrollUp",
+    "keys": [
+      "w",
+      "up"
+    ]
+  },
+  {
+    "command": "prevPage",
+    "keys": [
+      "a",
+      "left",
+      "mouse4"
+    ]
+  },
+  {
+    "command": "nextPage",
+    "keys": [
+      "d",
+      "right",
+      "mouse5"
+    ]
+  },
+  {
+    "command": "nextChapter",
+    "keys": [
+      "bracketright"
+    ]
+  },
+  {
+    "command": "prevChapter",
+    "keys": [
+      "bracketleft"
+    ]
+  },
+  {
+    "command": "focusSideListSearch",
+    "keys": [
+      "ctrl+shift+f"
+    ]
+  },
+  {
+    "command": "randomChapter",
+    "keys": [
+      "r"
+    ]
+  },
+  {
+    "command": "bookmark",
+    "keys": [
+      "b"
+    ]
+  },
+  {
+    "command": "sizePlus",
+    "keys": [
+      "equal",
+      "numpad_plus"
+    ]
+  },
+  {
+    "command": "sizeMinus",
+    "keys": [
+      "minus",
+      "numpad_minus"
+    ]
+  },
+  {
+    "command": "readerSettings",
+    "keys": [
+      "q"
+    ]
+  },
+  {
+    "command": "savePreset",
+    "keys": [
+      "ctrl+s"
+    ]
+  },
+  {
+    "command": "cyclePresetNext",
+    "keys": [
+      "alt+period"
+    ]
+  },
+  {
+    "command": "cyclePresetPrev",
+    "keys": [
+      "alt+comma"
+    ]
+  },
+  {
+    "command": "selectPreset1",
+    "keys": [
+      "alt+1"
+    ]
+  },
+  {
+    "command": "selectPreset2",
+    "keys": [
+      "alt+2"
+    ]
+  },
+  {
+    "command": "selectPreset3",
+    "keys": [
+      "alt+3"
+    ]
+  },
+  {
+    "command": "selectPreset4",
+    "keys": [
+      "alt+4"
+    ]
+  },
+  {
+    "command": "selectPreset5",
+    "keys": [
+      "alt+5"
+    ]
+  },
+  {
+    "command": "showHidePageNumberInZen",
+    "keys": [
+      "p"
+    ]
+  },
+  {
+    "command": "cycleFitOptions",
+    "keys": [
+      "v"
+    ]
+  },
+  {
+    "command": "selectReaderMode0",
+    "keys": [
+      "9"
+    ]
+  },
+  {
+    "command": "selectReaderMode1",
+    "keys": [
+      "0"
+    ]
+  },
+  {
+    "command": "selectReaderMode2",
+    "keys": []
+  },
+  {
+    "command": "selectPagePerRow1",
+    "keys": [
+      "1"
+    ]
+  },
+  {
+    "command": "selectPagePerRow2",
+    "keys": [
+      "2"
+    ]
+  },
+  {
+    "command": "selectPagePerRow2odd",
+    "keys": [
+      "3"
+    ]
+  },
+  {
+    "command": "fontSizePlus",
+    "keys": [
+      "shift+equal"
+    ]
+  },
+  {
+    "command": "fontSizeMinus",
+    "keys": [
+      "shift+minus"
+    ]
+  },
+  {
+    "command": "navToHome",
+    "keys": [
+      "h"
+    ]
+  },
+  {
+    "command": "dirUp",
+    "keys": [
+      "alt+up"
+    ]
+  },
+  {
+    "command": "contextMenu",
+    "keys": [
+      "ctrl+slash",
+      "shift+f10",
+      "menu"
+    ]
+  },
+  {
+    "command": "readerSize_50",
+    "keys": [
+      "ctrl+1"
+    ]
+  },
+  {
+    "command": "readerSize_100",
+    "keys": [
+      "ctrl+2"
+    ]
+  },
+  {
+    "command": "readerSize_150",
+    "keys": [
+      "ctrl+3"
+    ]
+  },
+  {
+    "command": "readerSize_200",
+    "keys": [
+      "ctrl+4"
+    ]
+  },
+  {
+    "command": "readerSize_250",
+    "keys": [
+      "ctrl+5"
+    ]
+  },
+  {
+    "command": "openSettings",
+    "keys": [
+      "ctrl+i"
+    ]
+  },
+  {
+    "command": "uiSizeReset",
+    "keys": [
+      "ctrl+0"
+    ]
+  },
+  {
+    "command": "uiSizeDown",
+    "keys": [
+      "ctrl+minus"
+    ]
+  },
+  {
+    "command": "uiSizeUp",
+    "keys": [
+      "ctrl+equal"
+    ]
+  },
+  {
+    "command": "listDown",
+    "keys": [
+      "down",
+      "ctrl+j"
+    ]
+  },
+  {
+    "command": "listUp",
+    "keys": [
+      "up",
+      "ctrl+k"
+    ]
+  },
+  {
+    "command": "listSelect",
+    "keys": [
+      "enter"
+    ]
+  }
+]

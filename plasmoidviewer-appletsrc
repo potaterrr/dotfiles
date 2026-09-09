@@ -1,0 +1,17 @@
+[Containments][1]
+ItemGeometries-640x480=Applet-2:320,240,144,96,0;
+ItemGeometriesHorizontal=Applet-2:320,240,144,96,0;
+activityId=
+formfactor=0
+immutability=1
+lastScreen=0
+location=0
+plugin=org.kde.desktopcontainment
+wallpaperplugin=org.kde.image
+
+[Containments][1][Applets][2]
+immutability=1
+plugin=org.linexin.launcher
+
+[Containments][1][Applets][2][Configuration][General]
+favoritesPortedToKAstats=true

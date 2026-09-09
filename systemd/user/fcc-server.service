@@ -1,0 +1,11 @@
+[Unit]
+Description=Free Claude Code Proxy Server
+After=network.target
+
+[Service]
+ExecStart=/home/kristiandyan/.local/bin/fcc-server
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=default.target

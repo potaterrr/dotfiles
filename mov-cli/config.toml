@@ -1,0 +1,5 @@
+[mov-cli]
+default = "youtube"
+
+[mov-cli.plugins]
+youtube = "mov-cli-youtube"

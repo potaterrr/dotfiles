@@ -1,0 +1,14 @@
+# ~/.config/wofi/config
+show=drun
+width=500
+height=400
+location=center
+always_parse_args=true
+show_all=false
+print_command=true
+insensitive=true
+prompt=Search Apps...
+allow_images=true
+image_size=24
+display_generic=true
+

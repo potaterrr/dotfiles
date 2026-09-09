@@ -1,0 +1,29 @@
+{
+  "$schema": "/etc/xdg/swaync/configSchema.json",
+  "positionX": "right",
+  "positionY": "top",
+  "layer": "overlay",
+  "control-center-width": 400,
+  "control-center-height": 600,
+  "fit-to-screen": false,
+  "hide-on-clear": false,
+  "hide-on-action": true,
+  "widget-config": {
+    "title": {
+      "text": "Notifications",
+      "clear-all-button": true,
+      "button-text": "Clear All"
+    },
+    "dnd": {
+      "text": "Do Not Disturb"
+    },
+    "notifications": {
+      "vexpand": true
+    }
+  },
+  "widgets": [
+    "title",
+    "dnd",
+    "notifications"
+  ]
+}

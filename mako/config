@@ -1,0 +1,39 @@
+# ~/.config/mako/config
+
+# --- Core Layout ---
+font=JetBrainsMono Nerd Font 10
+width=300
+height=110
+margin=15
+padding=12
+border-size=2
+border-radius=12
+max-visible=5
+sort=-time
+
+# --- Behavior Mapping ---
+# Left click: Closes the notification popup and permanently removes it from logs
+on-button-left=dismiss
+
+# Right click: Restores or opens actions
+on-button-right=none
+
+# --- Catppuccin Mocha Palette Styles ---
+background-color=#1e1e2eec
+text-color=#cdd6f4
+border-color=#cba6f7
+progress-color=source #313244
+
+[urgency=low]
+border-color=#b4befe
+text-color=#b4befe
+default-timeout=5000
+
+[urgency=normal]
+border-color=#cba6f7
+default-timeout=8000
+
+[urgency=critical]
+border-color=#f38ba8
+text-color=#f38ba8
+default-timeout=0

@@ -1,0 +1,11 @@
+[Unit]
+Description=Unsloth Studio User Service
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=%h/.local/bin/unsloth studio -H 0.0.0.0 -p 8888
+Restart=on-failure
+
+[Install]
+WantedBy=default.target

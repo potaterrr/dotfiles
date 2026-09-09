@@ -1,0 +1,6 @@
+2026/08/26-00:40:04.037 a0a Creating DB /home/kristiandyan/.config/BraveSoftware/Brave-Browser/Default/IndexedDB/https_app.netlify.com_0.indexeddb.leveldb since it was missing.
+2026/08/26-00:40:04.043 a0a Reusing MANIFEST /home/kristiandyan/.config/BraveSoftware/Brave-Browser/Default/IndexedDB/https_app.netlify.com_0.indexeddb.leveldb/MANIFEST-000001
+2026/08/26-00:42:52.364 a0c Level-0 table #5: started
+2026/08/26-00:42:52.367 a0c Level-0 table #5: 2642 bytes OK
+2026/08/26-00:42:52.370 a0c Delete type=0 #3
+2026/08/26-00:42:52.371 a0c Manual compaction at level-0 from (begin) .. (end); will stop at (end)

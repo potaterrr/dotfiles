@@ -1,0 +1,6 @@
+2026/08/18-21:50:29.831 999 Creating DB /home/kristiandyan/.config/BraveSoftware/Brave-Browser/Default/IndexedDB/https_console.apify.com_0.indexeddb.leveldb since it was missing.
+2026/08/18-21:50:29.836 999 Reusing MANIFEST /home/kristiandyan/.config/BraveSoftware/Brave-Browser/Default/IndexedDB/https_console.apify.com_0.indexeddb.leveldb/MANIFEST-000001
+2026/08/19-01:43:56.531 999 Level-0 table #5: started
+2026/08/19-01:43:56.535 999 Level-0 table #5: 11486 bytes OK
+2026/08/19-01:43:56.539 999 Delete type=0 #3
+2026/08/19-01:43:56.541 999 Manual compaction at level-0 from (begin) .. (end); will stop at (end)

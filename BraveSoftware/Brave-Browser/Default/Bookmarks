@@ -1,0 +1,69 @@
+{
+   "checksum": "12e7d9d89ed4452845b7db8a76951044",
+   "roots": {
+      "bookmark_bar": {
+         "children": [ {
+            "date_added": "13431459616128500",
+            "date_last_used": "0",
+            "guid": "8b7fefc7-3eb4-4f2f-b1c5-53fae85cfa08",
+            "id": "5",
+            "meta_info": {
+               "power_bookmark_meta": ""
+            },
+            "name": "Content Rewards | ClippedIn | Whop",
+            "type": "url",
+            "url": "https://whop.com/clippedin/exp_XfcRmGSAzuTsnM/app/"
+         }, {
+            "date_added": "13431522569837872",
+            "date_last_used": "0",
+            "guid": "25983ea4-f109-4d51-a4ea-d609227a633f",
+            "id": "6",
+            "meta_info": {
+               "power_bookmark_meta": ""
+            },
+            "name": "Automate SEO keyword & SERP analysis with DataForSEO and Google Sheets | n8n workflow template",
+            "type": "url",
+            "url": "https://n8n.io/workflows/10137-automate-seo-keyword-and-serp-analysis-with-dataforseo-and-google-sheets/"
+         }, {
+            "date_added": "13432905682019087",
+            "date_last_used": "0",
+            "guid": "00a6852e-d586-472c-9516-a972766ef5b3",
+            "id": "9",
+            "meta_info": {
+               "power_bookmark_meta": ""
+            },
+            "name": "AI/Automation Specialist | Simple | (888) 207-7023",
+            "type": "url",
+            "url": "https://www.simple.biz/ai/automation-specialist-career-application"
+         } ],
+         "date_added": "13431451403734295",
+         "date_last_used": "0",
+         "date_modified": "13433331107218522",
+         "guid": "0bc5d13f-2cba-5d74-951f-3f233fe6c908",
+         "id": "1",
+         "name": "Bookmarks bar",
+         "type": "folder"
+      },
+      "other": {
+         "children": [  ],
+         "date_added": "13431451403734295",
+         "date_last_used": "0",
+         "date_modified": "0",
+         "guid": "82b081ec-3dd3-529c-8475-ab6c344590dd",
+         "id": "2",
+         "name": "Other bookmarks",
+         "type": "folder"
+      },
+      "synced": {
+         "children": [  ],
+         "date_added": "13431451403734295",
+         "date_last_used": "0",
+         "date_modified": "0",
+         "guid": "4cf2e351-0e85-532b-bb37-df045d8f8d0f",
+         "id": "3",
+         "name": "Mobile bookmarks",
+         "type": "folder"
+      }
+   },
+   "version": 1
+}

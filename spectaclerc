@@ -1,0 +1,10 @@
+[GuiConfig]
+captureMode=0
+
+[ImageSave]
+lastImageSaveAsLocation=file:///home/kristiandyan/Downloads/deadlead.png
+lastImageSaveLocation=file:///home/kristiandyan/Downloads/deadlead.png
+translatedScreenshotsFolder=Screenshots
+
+[VideoSave]
+translatedScreencastsFolder=Screencasts
