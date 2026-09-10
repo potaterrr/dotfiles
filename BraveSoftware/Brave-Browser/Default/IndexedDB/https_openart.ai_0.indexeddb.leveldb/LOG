@@ -1,0 +1,6 @@
+2026/09/10-21:07:14.515 109f Creating DB /home/kristiandyan/.config/BraveSoftware/Brave-Browser/Default/IndexedDB/https_openart.ai_0.indexeddb.leveldb since it was missing.
+2026/09/10-21:07:14.542 109f Reusing MANIFEST /home/kristiandyan/.config/BraveSoftware/Brave-Browser/Default/IndexedDB/https_openart.ai_0.indexeddb.leveldb/MANIFEST-000001
+2026/09/10-21:09:17.406 108f Level-0 table #5: started
+2026/09/10-21:09:17.413 108f Level-0 table #5: 7529 bytes OK
+2026/09/10-21:09:17.421 108f Delete type=0 #3
+2026/09/10-21:09:17.422 1091 Manual compaction at level-0 from (begin) .. (end); will stop at (end)

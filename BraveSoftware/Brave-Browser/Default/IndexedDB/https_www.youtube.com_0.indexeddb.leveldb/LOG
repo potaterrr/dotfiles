@@ -1,15 +1,3 @@
-2026/09/09-09:52:51.283 af5 Reusing MANIFEST /home/kristiandyan/.config/BraveSoftware/Brave-Browser/Default/IndexedDB/https_www.youtube.com_0.indexeddb.leveldb/MANIFEST-000001
-2026/09/09-09:52:51.284 af5 Recovering log #248
-2026/09/09-09:52:51.299 af5 Reusing old log /home/kristiandyan/.config/BraveSoftware/Brave-Browser/Default/IndexedDB/https_www.youtube.com_0.indexeddb.leveldb/000248.log 
-2026/09/09-10:52:31.009 af5 Level-0 table #254: started
-2026/09/09-10:52:31.017 af5 Level-0 table #254: 964753 bytes OK
-2026/09/09-10:52:31.020 af5 Delete type=0 #248
-2026/09/09-10:52:31.021 af5 Manual compaction at level-0 from (begin) .. (end); will stop at (end)
-2026/09/09-10:52:31.021 af5 Manual compaction at level-1 from (begin) .. (end); will stop at '\x00$\x01 \x03\x00\x00\x00\x00\x00\x00\xf0?\x00\x04\x02\x01\x17\x00s\x00e\x00r\x00v\x00i\x00c\x00e\x00:\x00t\x00o\x00p\x00b\x00a\x00r\x00:\x00f\x00a\x00l\x00l\x00b\x00a\x00c\x00k\x03\x00\x00\x00\x00\x00\x00\xf0?' @ 103988 : 1
-2026/09/09-10:52:31.021 af5 Compacting 1@1 + 1@2 files
-2026/09/09-10:52:31.026 af5 Generated table #255@1: 350 keys, 89828 bytes
-2026/09/09-10:52:31.026 af5 Compacted 1@1 + 1@2 files => 89828 bytes
-2026/09/09-10:52:31.029 af5 compacted to: files[ 0 0 1 0 0 0 0 ]
-2026/09/09-10:52:31.029 af5 Delete type=2 #251
-2026/09/09-10:52:31.029 af5 Delete type=2 #254
-2026/09/09-10:52:31.029 af5 Manual compaction at level-1 from '\x00$\x01 \x03\x00\x00\x00\x00\x00\x00\xf0?\x00\x04\x02\x01\x17\x00s\x00e\x00r\x00v\x00i\x00c\x00e\x00:\x00t\x00o\x00p\x00b\x00a\x00r\x00:\x00f\x00a\x00l\x00l\x00b\x00a\x00c\x00k\x03\x00\x00\x00\x00\x00\x00\xf0?' @ 103988 : 1 .. (end); will stop at (end)
+2026/09/11-00:10:26.188 38701 Reusing MANIFEST /home/kristiandyan/.config/BraveSoftware/Brave-Browser/Default/IndexedDB/https_www.youtube.com_0.indexeddb.leveldb/MANIFEST-000001
+2026/09/11-00:10:26.189 38701 Recovering log #253
+2026/09/11-00:10:26.193 38701 Reusing old log /home/kristiandyan/.config/BraveSoftware/Brave-Browser/Default/IndexedDB/https_www.youtube.com_0.indexeddb.leveldb/000253.log 

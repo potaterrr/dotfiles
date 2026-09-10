@@ -1,3 +1,14 @@
-2026/09/08-07:57:16.739 aec Reusing MANIFEST /home/kristiandyan/.config/BraveSoftware/Brave-Browser/Default/IndexedDB/https_www.facebook.com_0.indexeddb.leveldb/MANIFEST-000001
-2026/09/08-07:57:16.739 aec Recovering log #49
-2026/09/08-07:57:16.787 aec Reusing old log /home/kristiandyan/.config/BraveSoftware/Brave-Browser/Default/IndexedDB/https_www.facebook.com_0.indexeddb.leveldb/000049.log 
+2026/09/10-20:05:47.661 108f Reusing MANIFEST /home/kristiandyan/.config/BraveSoftware/Brave-Browser/Default/IndexedDB/https_www.facebook.com_0.indexeddb.leveldb/MANIFEST-000001
+2026/09/10-20:05:47.661 108f Recovering log #49
+2026/09/10-20:05:47.689 108f Reusing old log /home/kristiandyan/.config/BraveSoftware/Brave-Browser/Default/IndexedDB/https_www.facebook.com_0.indexeddb.leveldb/000049.log 
+2026/09/10-20:05:50.440 1091 Level-0 table #55: started
+2026/09/10-20:05:50.462 1091 Level-0 table #55: 1788812 bytes OK
+2026/09/10-20:05:50.474 1091 Delete type=0 #49
+2026/09/10-20:05:51.010 1091 Compacting 1@1 + 2@2 files
+2026/09/10-20:05:51.053 1091 Generated table #56@1: 17264 keys, 2150054 bytes
+2026/09/10-20:05:51.070 1091 Generated table #57@1: 8185 keys, 1100288 bytes
+2026/09/10-20:05:51.070 1091 Compacted 1@1 + 2@2 files => 3250342 bytes
+2026/09/10-20:05:51.077 1091 compacted to: files[ 0 0 2 0 0 0 0 ]
+2026/09/10-20:05:51.077 1091 Delete type=2 #55
+2026/09/10-20:05:51.077 1091 Delete type=2 #52
+2026/09/10-20:05:51.077 1091 Delete type=2 #51

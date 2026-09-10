@@ -1,0 +1,16 @@
+updateInfoAdded=true
+
+[dolphin_detailsmodesettings.upd]
+ctime=1787313538
+done=rename-leading-padding,rename-side-padding,move-content-display
+mtime=1751299463
+
+[dolphin_statusandlocationbarssettings.upd]
+ctime=1787313538
+done=move-content-display,25.04-convert-bool-showstatusbar-to-enum-showstatusbar
+mtime=1751299463
+
+[spectacle.upd]
+ctime=1787483117
+done=25.04-convert-bool-showstatusbar-to-enum-showstatusbar,24.02.0-video_format,24.02.0-keep_old_save_location,24.02.0-rename_settings,24.02.0-keep_old_filename_templates,24.05.2-change_placeholder_format
+mtime=1746554490

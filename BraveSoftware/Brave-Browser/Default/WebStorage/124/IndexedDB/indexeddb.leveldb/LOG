@@ -1,3 +1,14 @@
-2026/09/09-12:12:15.574 4edab Reusing MANIFEST /home/kristiandyan/.config/BraveSoftware/Brave-Browser/Default/WebStorage/124/IndexedDB/indexeddb.leveldb/MANIFEST-000001
-2026/09/09-12:12:15.574 4edab Recovering log #112
-2026/09/09-12:12:15.575 4edab Reusing old log /home/kristiandyan/.config/BraveSoftware/Brave-Browser/Default/WebStorage/124/IndexedDB/indexeddb.leveldb/000112.log 
+2026/09/11-00:10:27.128 386f4 Reusing MANIFEST /home/kristiandyan/.config/BraveSoftware/Brave-Browser/Default/WebStorage/124/IndexedDB/indexeddb.leveldb/MANIFEST-000001
+2026/09/11-00:10:27.128 386f4 Recovering log #137
+2026/09/11-00:10:27.129 386f4 Reusing old log /home/kristiandyan/.config/BraveSoftware/Brave-Browser/Default/WebStorage/124/IndexedDB/indexeddb.leveldb/000137.log 
+2026/09/11-00:10:28.225 38703 Level-0 table #142: started
+2026/09/11-00:10:28.238 38703 Level-0 table #142: 63416 bytes OK
+2026/09/11-00:10:28.245 38703 Delete type=0 #137
+2026/09/11-00:10:28.245 386f2 Manual compaction at level-0 from '\x00'\x00\x00\x00' @ 72057594037927935 : 1 .. '\x00(\x00\x00\x00' @ 0 : 0; will stop at (end)
+2026/09/11-00:10:28.246 386f2 Manual compaction at level-1 from '\x00'\x00\x00\x00' @ 72057594037927935 : 1 .. '\x00(\x00\x00\x00' @ 0 : 0; will stop at '\x00(\x00\x00\xc8\x11\x00L\x00o\x00g\x00s\x00R\x00e\x00q\x00u\x00e\x00s\x00t\x00s\x00S\x00t\x00o\x00r\x00e' @ 11378 : 1
+2026/09/11-00:10:28.246 386f2 Compacting 1@1 + 1@2 files
+2026/09/11-00:10:28.253 386f2 Generated table #143@1: 61 keys, 1393 bytes
+2026/09/11-00:10:28.253 386f2 Compacted 1@1 + 1@2 files => 1393 bytes
+2026/09/11-00:10:28.261 386f2 compacted to: files[ 0 0 1 0 0 0 0 ]
+2026/09/11-00:10:28.261 386f2 Delete type=2 #142
+2026/09/11-00:10:28.261 386f2 Manual compaction at level-1 from '\x00(\x00\x00\xc8\x11\x00L\x00o\x00g\x00s\x00R\x00e\x00q\x00u\x00e\x00s\x00t\x00s\x00S\x00t\x00o\x00r\x00e' @ 11378 : 1 .. '\x00(\x00\x00\x00' @ 0 : 0; will stop at (end)

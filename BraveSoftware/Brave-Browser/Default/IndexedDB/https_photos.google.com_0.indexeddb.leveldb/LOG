@@ -1,3 +1,7 @@
-2026/09/08-19:19:40.415 19706 Reusing MANIFEST /home/kristiandyan/.config/BraveSoftware/Brave-Browser/Default/IndexedDB/https_photos.google.com_0.indexeddb.leveldb/MANIFEST-000001
-2026/09/08-19:19:40.416 19706 Recovering log #3
-2026/09/08-19:19:40.416 19706 Reusing old log /home/kristiandyan/.config/BraveSoftware/Brave-Browser/Default/IndexedDB/https_photos.google.com_0.indexeddb.leveldb/000003.log 
+2026/09/10-19:56:37.987 108f Reusing MANIFEST /home/kristiandyan/.config/BraveSoftware/Brave-Browser/Default/IndexedDB/https_photos.google.com_0.indexeddb.leveldb/MANIFEST-000001
+2026/09/10-19:56:37.987 108f Recovering log #3
+2026/09/10-19:56:37.990 108f Reusing old log /home/kristiandyan/.config/BraveSoftware/Brave-Browser/Default/IndexedDB/https_photos.google.com_0.indexeddb.leveldb/000003.log 
+2026/09/10-19:57:10.006 1091 Level-0 table #5: started
+2026/09/10-19:57:10.011 1091 Level-0 table #5: 5435 bytes OK
+2026/09/10-19:57:10.022 1091 Delete type=0 #3
+2026/09/10-19:57:10.022 1091 Manual compaction at level-0 from (begin) .. (end); will stop at (end)
