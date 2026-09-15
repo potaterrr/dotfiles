@@ -1,0 +1,208 @@
+/* ~/.config/waybar/style.css */
+
+/* Define Catppuccin Mocha Colors */
+@define-color base     #1e1e2e;
+@define-color mantle   #181825;
+@define-color text     #cdd6f4;
+@define-color surface0 #313244;
+@define-color surface1 #45475a;
+@define-color blue     #89b4fa;
+@define-color yellow   #f9e2af;
+@define-color pink     #f5c2e7;
+@define-color green    #a6e3a1;
+@define-color peach    #fab387;
+@define-color red      #f38ba8;
+@define-color mauve    #cba6f7;
+@define-color lavender #b4befe;
+@define-color teal     #94e2d5;
+@define-color rosewater #f5e0dc;
+
+* {
+    font-family: "JetBrainsMono Nerd Font", "Font Awesome 6 Free", sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    border: none;
+    border-radius: 0;
+}
+
+window#waybar {
+    background-color: rgba(30, 30, 46, 0.75); /* Semi-transparent base */
+    color: @text;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Base style for every pill module capsule */
+#workspaces,
+#clock,
+#battery,
+#cpu,
+#memory,
+#network,
+#pulseaudio,
+#tray,
+#custom-dunst {
+    padding: 0 14px;
+    margin: 5px 3px;
+    border-radius: 12px;
+    background-color: @surface0;
+}
+
+/* --- Left Modules --- */
+#workspaces button {
+    padding: 0 8px;
+    color: @lavender;
+    background-color: transparent;
+}
+
+#workspaces button.focused,
+#workspaces button.active {
+    color: @base;
+    background-color: @mauve;
+    border-radius: 8px;
+}
+
+#workspaces button:hover {
+    background-color: @surface1;
+    border-radius: 8px;
+    color: @text;
+}
+
+#cpu { color: @teal; }
+#memory { color: @rosewater; }
+
+/* --- Center Modules --- */
+#clock {
+    color: @base;
+    background-color: @blue;
+    font-weight: 800;
+}
+
+/* --- Right Modules --- */
+#pulseaudio { color: @yellow; }
+#network { color: @pink; }
+#battery { color: @green; }
+#battery.warning { color: @peach; }
+#battery.critical {
+    color: @red;
+    animation-name: blink;
+    animation-duration: 0.5s;
+    animation-direction: alternate;
+    animation-iteration-count: infinite;
+}
+
+#tray { background-color: @surface1; }
+
+/* --- Custom Notification Bell Modules --- */
+#custom-dunst {
+    min-width: 22px; /* Force-centers the standalone icon */
+}
+
+#custom-dunst.unread {
+    background-color: #cba6f7;
+    color: #1e1e2e;
+    font-weight: bold;
+    animation-name: bell-pulse;
+    animation-duration: 1.5s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+}
+
+#custom-dunst.empty {
+    background-color: #313244;
+    color: #a6adc8;
+}
+
+/* --- Animation Keyframes --- */
+@keyframes blink {
+    to {
+        background-color: @red;
+        color: @base;
+    }
+}
+
+@keyframes bell-pulse {
+    0% {
+        background-color: #cba6f7;
+        color: #1e1e2e;
+    }
+    50% {
+        background-color: #f38ba8; 
+        color: #1e1e2e;
+        box-shadow: 0 0 10px rgba(243, 139, 168, 0.6);
+    }
+    100% {
+        background-color: #cba6f7;
+        color: #1e1e2e;
+    }
+}
+
+/* General pill / tablet background styling for modules */
+#bluetooth,
+#pulseaudio,
+#network,
+#battery,
+#clock,
+#cpu,
+#memory {
+    background-color: #1e1e2e; /* Adjust color to fit your theme */
+    color: #cdd6f4;
+    padding: 0 10px;
+    margin: 4px 2px;
+    border-radius: 12px; /* This creates the rounded tablet/pill shape */
+}
+#swaync,
+#bluetooth,
+#pulseaudio,
+#network,
+#battery,
+#clock,
+#cpu,
+#memory {
+    background-color: #1e1e2e;
+    color: #cdd6f4;
+    padding: 0 10px;
+    margin: 4px 2px;
+    border-radius: 12px;
+}
+#custom-swaync,
+#bluetooth,
+#pulseaudio,
+#network,
+#battery,
+#clock,
+#cpu,
+#memory {
+    background-color: #1e1e2e;
+    color: #cdd6f4;
+    padding: 0 10px;
+    margin: 4px 2px;
+    border-radius: 12px;
+}
+#custom-notification,
+#bluetooth,
+#pulseaudio,
+#network,
+#battery,
+#clock,
+#cpu,
+#memory {
+    background-color: #1e1e2e;
+    color: #cdd6f4;
+    padding: 0 10px;
+    margin: 4px 2px;
+    border-radius: 12px;
+}
+#network,
+#custom-notification,
+#bluetooth,
+#pulseaudio,
+#battery,
+#clock,
+#cpu,
+#memory {
+    background-color: #1e1e2e;
+    color: #cdd6f4;
+    padding: 0 10px;
+    margin: 4px 2px;
+    border-radius: 12px;
+}
