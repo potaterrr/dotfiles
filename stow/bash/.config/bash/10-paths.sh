@@ -13,6 +13,12 @@ path_add() {
 path_add "$HOME/.opencode/bin"
 path_add "$HOME/go/bin"
 path_add "$HOME/.local/bin"
+path_add "$HOME/.cargo/bin"
+
+# Node: use the newest locally-installed version under ~/.local/opt (no hardcoding)
+for node_bin in "$HOME"/.local/opt/node-v*-linux-x64/bin; do
+    [ -d "$node_bin" ] && path_add "$node_bin"
+done
 export PATH
 
 # default editor (LazyVim via Neovim)

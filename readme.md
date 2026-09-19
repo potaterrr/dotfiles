@@ -27,6 +27,7 @@ Configurations are isolated into individual modular packages under the `stow/` d
 | **`bash`** | Custom Bash shell configurations, prompts, and git aliases |
 | **`nvim`** | Neovim setup powered by LazyVim |
 | **`starship`** | Minimalist cross-shell prompt preset |
+| **`fastfetch`** | Fastfetch system info presets (compact, groups, pokemon) |
 | **`hypr`** | Hyprland dynamic tiling window manager setup |
 | **`waybar`** | Custom Waybar status bar layout |
 | **`wofi`** | Wofi application launcher configuration |
@@ -39,4 +40,6 @@ Configurations are isolated into individual modular packages under the `stow/` d
 Clone the repository and launch the automated setup script instantly:
 
 ```bash
-git clone [https://github.com/potaterrr/dotfiles.git](https://github.com/potaterrr/dotfiles.git) ~/git-projects/dotfiles && cd ~/git-projects/dotfiles && chmod +x install.sh && ./install.sh
+git clone https://github.com/potaterrr/dotfiles.git ~/git-projects/dotfiles && cd ~/git-projects/dotfiles && chmod +x install.sh && ./install.sh
+```
+
