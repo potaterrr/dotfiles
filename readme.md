@@ -43,3 +43,35 @@ Clone the repository and launch the automated setup script instantly:
 git clone https://github.com/potaterrr/dotfiles.git ~/git-projects/dotfiles && cd ~/git-projects/dotfiles && chmod +x install.sh && ./install.sh
 ```
 
+### Supported Distributions
+
+The installer auto-detects and uses **apt** (Debian/Ubuntu), **dnf** (Fedora),
+**pacman** (Arch), **zypper** (openSUSE), **apk** (Alpine), or **xbps** (Void).
+On unsupported distros it warns, skips package installation, and still stows
+the selected configs. Existing files that would collide (e.g. the distro's
+default `~/.bashrc`) are backed up to `<file>.pre-stow.<timestamp>` first.
+
+Non-interactive options (great for fresh bare-metal installs):
+
+```bash
+./install.sh -y                     # default set: bash, nvim, starship, fastfetch
+./install.sh -a                     # everything
+PACKAGES="bash waybar" ./install.sh -y
+./install.sh -p "bash hypr wofi"    # explicit list
+./install.sh -h                     # all options
+```
+
+### Distro-agnostic package commands
+
+The bash config detects your package manager at shell startup
+(`~/.config/bash/15-package-manager.sh`) and exposes the same commands
+everywhere — no more apt-only aliases:
+
+| Command | Action |
+| :--- | :--- |
+| `update` | Refresh package lists + upgrade |
+| `install <pkg>` | Install packages |
+| `remove <pkg>` | Remove packages (with autoremove where applicable) |
+| `search <term>` | Search repos |
+| `pkg_update` / `pkg_install` / ... | Underlying functions, usable in scripts |
+

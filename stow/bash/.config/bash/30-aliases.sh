@@ -1,10 +1,10 @@
 # ~/.config/bash/30-aliases.sh — aliases
 
-# APT shortcuts
-alias update='sudo apt update && sudo apt upgrade -y'
-alias install='sudo apt install -y'
-alias remove='sudo apt purge -y && sudo apt autoremove -y'
-alias search='apt search'
+# Distro-agnostic package commands (defined in 15-package-manager.sh)
+alias update='pkg_update && pkg_upgrade'
+alias install='pkg_install'
+alias remove='pkg_remove'
+alias search='pkg_search'
 
 # general shortcuts
 alias c='clear'
@@ -24,11 +24,12 @@ fi
 # code editor
 alias edit='nvim'
 
-#hyprpaper
+#hyprpaper (Hyprland only)
 wall() {
-  local img="$1"
-  # Resolve absolute path
-  img="$(realpath "$img")"
+  command -v hyprpaper >/dev/null 2>&1 || { echo "wall: hyprpaper not installed" >&2; return 1; }
+  [ -z "$1" ] && { echo "Usage: wall <image>" >&2; return 1; }
+  local img
+  img="$(realpath "$1")" || return 1
 
   local conf="$HOME/.config/hypr/hyprpaper.conf"
 
@@ -43,8 +44,13 @@ EOF
   nohup hyprpaper >/dev/null 2>&1 &
   disown
 }
+
 # Simple aria2 downloader shortcut
 download() {
+  if ! command -v aria2c >/dev/null 2>&1; then
+    echo "download: aria2 is not installed. Install it with: pkg_install aria2" >&2
+    return 1
+  fi
   if [ -z "$1" ]; then
     echo "Error: Please provide a URL."
     echo "Usage: download https://example.com"
