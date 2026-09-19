@@ -37,7 +37,14 @@ Configurations are isolated into individual modular packages under the `stow/` d
 ## 🚀 Installation Guide
 
 ### Quick One-Liner Install
-Clone the repository and launch the automated setup script instantly:
+
+Bootstraps everything (clone + deps + stow) on any supported distro:
+
+```bash
+curl -fsSL https://potaterrr.github.io/install | sh
+```
+
+Prefer to review first? The classic way works too:
 
 ```bash
 git clone https://github.com/potaterrr/dotfiles.git ~/git-projects/dotfiles && cd ~/git-projects/dotfiles && chmod +x install.sh && ./install.sh
