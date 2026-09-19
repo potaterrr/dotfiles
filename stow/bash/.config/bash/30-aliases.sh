@@ -43,3 +43,13 @@ EOF
   nohup hyprpaper >/dev/null 2>&1 &
   disown
 }
+# Simple aria2 downloader shortcut
+download() {
+  if [ -z "$1" ]; then
+    echo "Error: Please provide a URL."
+    echo "Usage: download https://example.com"
+    return 1
+  fi
+  # Runs aria2 with 16 connections right in your current directory
+  aria2c -x 16 -s 16 "$1"
+}
