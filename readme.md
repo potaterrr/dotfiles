@@ -27,7 +27,7 @@ Configurations are isolated into individual modular packages under the `stow/` d
 | **`bash`** | Custom Bash shell configurations, prompts, and git aliases |
 | **`nvim`** | Neovim setup powered by LazyVim |
 | **`starship`** | Minimalist cross-shell prompt preset |
-| **`fastfetch`** | Fastfetch system info presets (compact, groups, pokemon) |
+| **`fastfetch`** | Catppuccin-themed system info (boxed layout, potato logo, kitty graphics + ASCII fallback) |
 | **`hypr`** | Hyprland dynamic tiling window manager setup |
 | **`waybar`** | Custom Waybar status bar layout |
 | **`wofi`** | Wofi application launcher configuration |
@@ -57,6 +57,21 @@ The installer auto-detects and uses **apt** (Debian/Ubuntu), **dnf** (Fedora),
 On unsupported distros it warns, skips package installation, and still stows
 the selected configs. Existing files that would collide (e.g. the distro's
 default `~/.bashrc`) are backed up to `<file>.pre-stow.<timestamp>` first.
+
+### Fastfetch theming
+
+The default `config.jsonc` is the [Catppuccin fastfetch](https://github.com/Nukecraft5419/fastfetch)
+boxed layout (Hardware/Software sections) with a custom potato badge
+(`logo/catppuccin_logo.png`, rendered via the kitty graphics protocol) and a
+cute ASCII potato fallback (`potato.ans`, see `config-ascii.jsonc`). Piping
+`fastfetch` (e.g. into `less`) automatically drops to the built-in fallback.
+
+All colors are written as raw SGR parameters (`38;2;R;G;B`) instead of `#hex`:
+mainline fastfetch accepts both, but some builds only parse SGR — so the theme
+renders identically on every distro and build.
+
+Other presets: `config-ascii.jsonc` (potato ASCII), `config-compact.jsonc`,
+`config-pokemon.jsonc`, `config-v2.jsonc`.
 
 Non-interactive options (great for fresh bare-metal installs):
 
