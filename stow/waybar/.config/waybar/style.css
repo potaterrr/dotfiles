@@ -108,11 +108,11 @@ window#waybar {
     background-color: #1e1e2e;
 }
 
-/* Active: steaming coffee — teal icon + steam glow pulse */
+/* Active: steaming coffee — teal icon + subtle steam-glow breathing */
 #custom-caffeine.active {
     color: #94e2d5;
     animation-name: caffeine-steam;
-    animation-duration: 2s;
+    animation-duration: 3s;
     animation-timing-function: ease-in-out;
     animation-iteration-count: infinite;
 }
@@ -123,8 +123,8 @@ window#waybar {
         box-shadow: none;
     }
     50% {
-        color: #ffffff;
-        box-shadow: 0 0 12px rgba(148, 226, 213, 0.55);
+        color: #b8ece2;
+        box-shadow: 0 0 8px rgba(148, 226, 213, 0.35);
     }
     100% {
         color: #94e2d5;
