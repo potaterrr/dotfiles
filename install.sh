@@ -13,7 +13,7 @@ DOTFILES_BASE="$(cd "$DOTFILES_BASE" 2>/dev/null && pwd -P || printf %s "$DOTFIL
 TARGET_DIR="$(cd "$STOW_TARGET" 2>/dev/null && pwd -P || printf %s "$STOW_TARGET")"
 DOTFILES_DIR="$DOTFILES_BASE/stow"
 
-ALL_PACKAGES=(bash fastfetch nvim starship hypr waybar wofi)
+ALL_PACKAGES=(bash fastfetch nvim starship hypr waybar wofi gtk)
 # Default for non-interactive runs (override with: PACKAGES="bash nvim" ./install.sh -y)
 DEFAULT_PACKAGES=(bash nvim starship fastfetch)
 
@@ -169,7 +169,7 @@ install_pkgs() {
 if [ ${#SELECTED_PACKAGES[@]} -eq 0 ]; then
     if command -v whiptail >/dev/null 2>&1; then
         CHOICES=$(whiptail --title "Potaterrr Dotfiles Installer" \
-            --checklist "Use [Space] to select/deselect packages to install & stow:" 20 78 9 \
+            --checklist "Use [Space] to select/deselect packages to install & stow:" 20 78 10 \
             "bash" "Bash shell configurations & aliases" ON \
             "nvim" "Neovim (LazyVim setup)" ON \
             "starship" "Starship prompt preset" ON \
@@ -177,6 +177,7 @@ if [ ${#SELECTED_PACKAGES[@]} -eq 0 ]; then
             "hypr" "Hyprland window manager setup" OFF \
             "waybar" "Waybar status bar" OFF \
             "wofi" "Wofi application launcher" OFF \
+            "gtk" "GTK cursor theme (Bibata Modern Ice)" OFF \
             3>&1 1>&2 2>&3) || { echo "Installation cancelled by user."; exit 0; }
         # shellcheck disable=SC2206
         SELECTED_PACKAGES=($(echo "$CHOICES" | tr -d '"'))
@@ -240,10 +241,24 @@ if [ -n "$PKG_INSTALL" ]; then
             nvim)      install_pkgs nvim ripgrep make unzip git ;;
             starship)  install_pkgs starship ;;
             fastfetch) install_pkgs fastfetch ;;
-            hypr)      install_pkgs hyprland hyprpaper hyprlock hyprshot wlogout \
+            hypr)      install_pkgs hyprland hyprpaper hyprlock hypridle hyprshot wlogout \
                               kitty yazi btop brave brightnessctl pipewire wireplumber dunst qt6ct ;;
             waybar)    install_pkgs waybar dunst ;;
             wofi)      install_pkgs wofi ;;
+            gtk)       install_pkgs bibata-cursor-theme
+                       # Fallback: fetch Bibata Modern Ice from GitHub releases
+                       # when this distro doesn't package it (user-level install)
+                       if [ ! -d "$HOME/.local/share/icons/Bibata-Modern-Ice" ] \
+                          && [ ! -d "/usr/share/icons/Bibata-Modern-Ice" ]; then
+                           log "Fetching Bibata Modern Ice from GitHub releases..."
+                           mkdir -p "$HOME/.local/share/icons" /tmp/bibata-dl
+                           curl -fsSL -o /tmp/bibata-dl/bibata.tar.xz \
+                               "https://github.com/ful1e5/Bibata_Cursor/releases/latest/download/Bibata-Modern-Ice.tar.xz" \
+                               && tar -xf /tmp/bibata-dl/bibata.tar.xz -C /tmp/bibata-dl \
+                               && cp -r /tmp/bibata-dl/Bibata-Modern-Ice "$HOME/.local/share/icons/" \
+                               || warn "Could not download Bibata cursor; install it manually"
+                           rm -rf /tmp/bibata-dl
+                       fi ;;
         esac
     done
 else
