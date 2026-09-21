@@ -308,6 +308,25 @@ for pkg in "${SELECTED_PACKAGES[@]}"; do
     fi
 done
 
+# ---------------------------------------------------------------------------
+# 7. Waybar extras — caffeine mode (idle inhibitor for hypridle)
+#    Installs the systemd user unit so the ☕/💤 waybar module works out of
+#    the box; toggle with Super+C, the bar icon, or `make -C ~/.config/waybar`.
+# ---------------------------------------------------------------------------
+for p in "${SELECTED_PACKAGES[@]}"; do
+    if [ "$p" = "waybar" ] && [ -f "$DOTFILES_DIR/systemd/.config/systemd/user/caffeine.service" ]; then
+        CAFFEINE_UNIT_DST="$TARGET_DIR/.config/systemd/user/caffeine.service"
+        log "Installing caffeine mode (idle inhibitor)..."
+        mkdir -p "$(dirname "$CAFFEINE_UNIT_DST")"
+        cp "$DOTFILES_DIR/systemd/.config/systemd/user/caffeine.service" "$CAFFEINE_UNIT_DST"
+        [ -f "$TARGET_DIR/.config/waybar/scripts/caffeine.sh" ] \
+            && chmod +x "$TARGET_DIR/.config/waybar/scripts/caffeine.sh"
+        systemctl --user daemon-reload 2>/dev/null \
+            || warn "Could not reload systemd user units; run 'systemctl --user daemon-reload' later."
+        echo "    Caffeine mode: toggle with Super+C or click the 💤/☕ icon on waybar."
+    fi
+done
+
 log "Dotfiles setup complete!"
 echo "    Next: start a new shell (or run 'source ~/.bashrc') to load the bash config."
 echo "    Package commands (update/install/remove/search) now work on this distro."
