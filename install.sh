@@ -242,7 +242,8 @@ if [ -n "$PKG_INSTALL" ]; then
             starship)  install_pkgs starship ;;
             fastfetch) install_pkgs fastfetch ;;
             hypr)      install_pkgs hyprland hyprpaper hyprlock hypridle hyprshot wlogout \
-                              kitty yazi btop brave brightnessctl pipewire wireplumber dunst qt6ct ;;
+                              kitty yazi btop brave brightnessctl pipewire wireplumber dunst qt6ct \
+                              python3 python3-gobject python3-cairo ;;
             waybar)    install_pkgs waybar dunst ;;
             wofi)      install_pkgs wofi ;;
             gtk)       install_pkgs bibata-cursor-theme
