@@ -41,6 +41,13 @@ YELLOW = "#f9e2af"
 SORT_KEYS = {0: "pid", 1: "name", 2: "user", 3: "cpu", 4: "mem", 5: "state"}
 STATE_MAP = {"R": "Running", "S": "Sleeping", "D": "Disk wait", "Z": "Zombie", "T": "Stopped"}
 
+# Row backgrounds as Gdk.RGBA so treeview cells paint translucent dark
+# regardless of what the system GTK theme wants (no white patches).
+ROW_BG = Gdk.RGBA()
+ROW_BG.parse("rgba(24, 24, 37, 0.50)")
+SEL_BG = Gdk.RGBA()
+SEL_BG.parse("rgba(69, 71, 90, 0.90)")
+
 
 def read_first_line(path):
     try:
@@ -152,54 +159,62 @@ class TaskManager(Gtk.Window):
     # ---------------------------------------------------------------- styling
     def apply_css(self):
         css = f"""
-        window {{ background-color: rgba(30, 30, 46, 0.86); }}
+        window {{ background-color: rgba(30, 30, 46, 0.75); }}
         * {{
             color: {TEXT};
             font-size: 13px;
             font-family: "JetBrains Mono", "Fira Code", "DejaVu Sans Mono", monospace;
         }}
+        /* every container goes transparent — the window's rgba is the only frost */
+        box, grid, flowbox, flowboxchild, label, stack, notebook, scrolledwindow,
+        viewport, separator, levelbar trough {{ background-color: transparent; }}
+
         .tm-header {{ padding: 10px 14px 6px 14px; }}
         .tm-search {{
-            background-color: rgba(49, 50, 68, 0.75);
+            background-color: rgba(49, 50, 68, 0.55);
             color: {TEXT};
             border: 1px solid {SURFACE1};
             border-radius: 8px;
             padding: 6px 10px;
         }}
-        notebook {{ background-color: rgba(24, 24, 37, 0.72); }}
-        notebook header {{ background-color: rgba(24, 24, 37, 0.80); }}
+        notebook header {{ background-color: rgba(24, 24, 37, 0.45); }}
+        notebook header tabs tab {{
+            background-color: transparent;
+            padding: 6px 16px;
+        }}
+        notebook header tabs tab:checked {{
+            background-color: rgba(69, 71, 90, 0.75);
+            border-radius: 8px;
+        }}
         .tm-list, scrolledwindow {{
-            background-color: rgba(24, 24, 37, 0.66);
+            background-color: rgba(24, 24, 37, 0.35);
             border-radius: 10px;
             border: 1px solid {SURFACE0};
         }}
         treeview {{
-            background-color: rgba(24, 24, 37, 0.62);
+            background-color: rgba(24, 24, 37, 0.35);
             color: {TEXT};
         }}
-        treeview:hover {{ background-color: {SURFACE0}; }}
-        treeview:selected {{
-            background-color: {SURFACE1};
-            color: {TEXT};
-        }}
+        treeview:selected {{ color: {TEXT}; }}
         treeview header button {{
-            background-color: rgba(49, 50, 68, 0.85);
+            background-color: rgba(49, 50, 68, 0.55);
             color: {SUBTEXT};
             border: none;
             border-right: 1px solid {MANTLE};
             padding: 6px 8px;
             font-weight: bold;
         }}
+        levelbar {{ border-radius: 3px; }}
         levelbar block.filled {{ background-color: {BLUE}; border-radius: 3px; }}
-        levelbar block.empty {{ background-color: rgba(49, 50, 68, 0.6); border-radius: 3px; }}
+        levelbar block.empty {{ background-color: rgba(49, 50, 68, 0.45); border-radius: 3px; }}
         .tm-btn {{
-            background-color: rgba(49, 50, 68, 0.85);
+            background-color: rgba(49, 50, 68, 0.60);
             color: {TEXT};
             border: 1px solid {SURFACE1};
             border-radius: 8px;
             padding: 7px 14px;
         }}
-        .tm-btn:hover {{ background-color: {SURFACE1}; }}
+        .tm-btn:hover {{ background-color: rgba(69, 71, 90, 0.85); }}
         .tm-btn-danger {{
             background-color: {RED};
             color: {BASE};
@@ -208,11 +223,17 @@ class TaskManager(Gtk.Window):
         }}
         .tm-btn-danger:hover {{ background-color: #f5a0b8; }}
         .tm-statusbar {{
-            background-color: rgba(24, 24, 37, 0.82);
+            background-color: rgba(24, 24, 37, 0.55);
             color: {OVERLAY};
             font-size: 11px;
             padding: 4px 10px;
-            border-top: 1px solid {SURFACE0};
+            border-top: 1px solid rgba(49, 50, 68, 0.6);
+        }}
+        dialog {{ background-color: rgba(30, 30, 46, 0.95); }}
+        messagedialog .titlebar {{
+            background-color: transparent;
+            border: none;
+            border-bottom: none;
         }}
         """
         provider = Gtk.CssProvider()
@@ -258,7 +279,7 @@ class TaskManager(Gtk.Window):
 
         scroller = Gtk.ScrolledWindow()
         scroller.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
-        scroller.set_shadow_type(Gtk.ShadowType.IN)
+        scroller.set_shadow_type(Gtk.ShadowType.NONE)  # no theme frame — CSS border only
         scroller.get_style_context().add_class("tm-list")
 
         self.store = Gtk.ListStore(int, str, str, float, float, str)
@@ -363,15 +384,24 @@ class TaskManager(Gtk.Window):
         return {"box": box, "cap": cap, "level": level}
 
     # ---------------------------------------------------------------- cells
+    def _cell_bg(self, model, it):
+        """Translucent dark everywhere; lighter slate on the selected row."""
+        _m, sel = self.tree.get_selection().get_selected()
+        selected = sel is not None and model.get_path(sel) == model.get_path(it)
+        return SEL_BG if selected else ROW_BG
+
     def cell_text(self, _col, cell, model, it, idx):
         cell.set_property("text", model[it][idx])
+        cell.set_property("cell-background-rgba", self._cell_bg(model, it))
 
     def cell_int(self, _col, cell, model, it, idx):
         cell.set_property("text", str(model[it][idx]))
+        cell.set_property("cell-background-rgba", self._cell_bg(model, it))
 
     def cell_pct(self, _col, cell, model, it, idx):
         v = model[it][idx]
         cell.set_property("text", f"{v:5.1f}")
+        cell.set_property("cell-background-rgba", self._cell_bg(model, it))
         if v > 60:
             cell.set_property("foreground", RED)
         elif v > 25:
@@ -381,6 +411,7 @@ class TaskManager(Gtk.Window):
 
     def cell_mem(self, _col, cell, model, it, idx):
         cell.set_property("text", f"{model[it][idx]:.0f} MB")
+        cell.set_property("cell-background-rgba", self._cell_bg(model, it))
 
     # ---------------------------------------------------------------- data
     def tick(self):
