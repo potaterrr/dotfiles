@@ -28,9 +28,10 @@ Configurations are isolated into individual modular packages under the `stow/` d
 | **`nvim`** | Neovim setup powered by LazyVim |
 | **`starship`** | Minimalist cross-shell prompt preset |
 | **`fastfetch`** | Catppuccin-themed system info (boxed layout, potato logo, kitty graphics + ASCII fallback) |
-| **`hypr`** | Hyprland dynamic tiling window manager setup |
+| **`hypr`** | Hyprland dynamic tiling window manager setup (incl. hypridle, hyprlock, cursor env) |
 | **`waybar`** | Custom Waybar status bar layout |
 | **`wofi`** | Wofi application launcher configuration |
+| **`gtk`** | Bibata Modern Ice cursor theme for GTK3/GTK4 apps |
 
 ---
 
@@ -57,6 +58,33 @@ The installer auto-detects and uses **apt** (Debian/Ubuntu), **dnf** (Fedora),
 On unsupported distros it warns, skips package installation, and still stows
 the selected configs. Existing files that would collide (e.g. the distro's
 default `~/.bashrc`) are backed up to `<file>.pre-stow.<timestamp>` first.
+
+### Hyprland desktop (the `hypr` + `gtk` packages)
+
+Modular config — `hyprland.conf` sources `conf/{monitors,theme,keybinds,autostart,input}.conf`.
+
+**Idle management (`hypridle`)** — autostarts with Hyprland, each stage resets on any input:
+
+| Idle | Action |
+| :--- | :--- |
+| 2 min | Brightness → 0% (black screen, no DPMS delay) |
+| 10 min | Session locks (same Catppuccin hyprlock as `Super+L`) |
+| 15 min | Display off (DPMS) |
+| 25 min | Suspend — **on battery only** |
+| 60 min | Suspend regardless of power source |
+
+Power source is checked at timeout time (`/sys/class/power_supply/A*/online`), so
+unplugging mid-session switches you to the aggressive schedule without a reload.
+Every wake path restores brightness and lands directly on the hyprlock password
+prompt. Media/video inhibitors (dbus) are respected.
+
+**Lock screen (`hyprlock`)** — Catppuccin Mocha palette with live clock (1s),
+weekday + date label, and a battery/charging label (10s refresh).
+
+**Cursor theme** — Bibata Modern Ice everywhere: `XCURSOR_THEME`/`XCURSOR_SIZE`
+env vars for Hyprland, `gtk-cursor-theme-*` for GTK apps (see the `gtk` package).
+`install.sh` tries the distro's Bibata package first, then falls back to the
+official GitHub release tarball (user-level, `~/.local/share/icons/`).
 
 ### Fastfetch theming
 
