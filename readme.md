@@ -29,7 +29,8 @@ Configurations are isolated into individual modular packages under the `stow/` d
 | **`starship`** | Minimalist cross-shell prompt preset |
 | **`fastfetch`** | Catppuccin-themed system info (boxed layout, potato logo, kitty graphics + ASCII fallback) |
 | **`hypr`** | Hyprland dynamic tiling window manager setup (incl. hypridle, hyprlock, cursor env) |
-| **`waybar`** | Custom Waybar status bar layout |
+| **`waybar`** | Custom Waybar status bar layout with caffeine mode (💤/☕ idle inhibitor) |
+| **`systemd`** | `caffeine.service` user unit — auto-installed with the `waybar` package |
 | **`wofi`** | Wofi application launcher configuration |
 | **`gtk`** | Bibata Modern Ice cursor theme for GTK3/GTK4 apps |
 
@@ -76,7 +77,8 @@ Modular config — `hyprland.conf` sources `conf/{monitors,theme,keybinds,autost
 Power source is checked at timeout time (`/sys/class/power_supply/A*/online`), so
 unplugging mid-session switches you to the aggressive schedule without a reload.
 Every wake path restores brightness and lands directly on the hyprlock password
-prompt. Media/video inhibitors (dbus) are respected.
+prompt. Media/video inhibitors (dbus) are respected. Caffeine mode (see the
+`waybar` package below) pauses this entire schedule while active.
 
 **Lock screen (`hyprlock`)** — Catppuccin Mocha palette with live clock (1s),
 weekday + date label, and a battery/charging label (10s refresh).
@@ -92,6 +94,30 @@ official GitHub release tarball (user-level, `~/.local/share/icons/`).
 escalation, CPU/RAM/swap bars, and lock/logout/reboot/shutdown actions — all in
 Catppuccin Mocha. `btop` moved to `Super+Shift+T`. Window rules in
 `conf/windowrules.conf` use the Hyprland 0.53+ `match:class` syntax.
+
+### Waybar status bar (the `waybar` package)
+
+Catppuccin Mocha pill layout — workspaces/CPU/RAM/network on the left, clock in
+the center, bluetooth/notifications/volume/battery/tray on the right.
+
+**Caffeine mode (☕/💤)** — keeps the screen awake by holding a logind
+`idle:sleep` inhibitor lock (a transient `caffeine.service` user unit), which
+`hypridle` respects via `ignore_dbus_inhibit = false`. Toggle it with `Super+C`
+or by clicking the bar icon:
+
+| State | Icon | Meaning |
+| :--- | :--- | :--- |
+| Off | 💤 (dimmed) | Normal idle schedule runs |
+| On | ☕ (teal, breathing glow) | All idle timers paused |
+
+- Icon state syncs instantly (SIGRTMIN+8) no matter how caffeine is toggled —
+  keybind, bar click, `make toggle`, or CLI.
+- Auto-enabled at login (`exec-once` in `conf/autostart.conf`); each toggle
+  sends a desktop notification.
+- `install.sh` installs and daemon-reloads `caffeine.service` automatically
+  whenever the `waybar` package is selected.
+- Handy commands: `make -C ~/.config/waybar toggle` (also `on` / `off` /
+  `status` / `install`).
 
 ### Fastfetch theming
 
