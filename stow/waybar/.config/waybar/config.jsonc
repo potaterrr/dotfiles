@@ -4,8 +4,8 @@
     "height": 38,
     "spacing": 4,
     "modules-left": ["hyprland/workspaces", "cpu", "memory", "network"],
-    "modules-center": ["clock"],
-    "modules-right": ["bluetooth", "custom/notification", "custom/caffeine", "pulseaudio", "battery", "tray"],
+    "modules-center": ["custom/caffeine", "clock"],
+    "modules-right": ["bluetooth", "custom/notification", "pulseaudio", "battery", "tray"],
 
     // --- Network Module with Globe and Speeds ---
     "network": {

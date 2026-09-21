@@ -99,17 +99,18 @@ window#waybar {
 
 /* --- Caffeine Mode (idle inhibitor) --- */
 #custom-caffeine {
-    min-width: 22px;
-    background-color: #1e1e2e;
+    min-width: 34px;
     padding: 0 10px;
-    margin: 4px 2px;
+    margin: 5px 3px;
     border-radius: 12px;
+    /* Same background whether on or off — only the icon color changes.
+       Matches the other pill modules (#1e1e2e). */
+    background-color: #1e1e2e;
 }
 
-/* Active: steaming coffee — teal accent + steam glow pulse */
+/* Active: steaming coffee — teal icon + steam glow pulse */
 #custom-caffeine.active {
     color: #94e2d5;
-    background-color: rgba(148, 226, 213, 0.15);
     animation-name: caffeine-steam;
     animation-duration: 2s;
     animation-timing-function: ease-in-out;
