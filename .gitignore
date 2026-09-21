@@ -1,2 +1,4 @@
 # fastfetch theme installer backups (timestamped config copies)
 stow/fastfetch/.config/fastfetch/backups/
+__pycache__/
+*.pyc

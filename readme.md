@@ -86,6 +86,13 @@ env vars for Hyprland, `gtk-cursor-theme-*` for GTK apps (see the `gtk` package)
 `install.sh` tries the distro's Bibata package first, then falls back to the
 official GitHub release tarball (user-level, `~/.local/share/icons/`).
 
+**Task Manager (`potato-taskmgr`)** — a Windows-style task manager on
+`Ctrl+Alt+Delete` (GTK3, reads `/proc` directly — no psutil). Live process table
+(CPU%/memory/user/state, sortable + searchable), End Task with SIGTERM→SIGKILL
+escalation, CPU/RAM/swap bars, and lock/logout/reboot/shutdown actions — all in
+Catppuccin Mocha. `btop` moved to `Super+Shift+T`. Window rules in
+`conf/windowrules.conf` use the Hyprland 0.53+ `match:class` syntax.
+
 ### Fastfetch theming
 
 The default `config.jsonc` is the [Catppuccin fastfetch](https://github.com/Nukecraft5419/fastfetch)
