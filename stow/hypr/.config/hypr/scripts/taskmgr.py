@@ -20,6 +20,11 @@ import time
 gi.require_version("Gtk", "3.0")
 from gi.repository import Gtk, GLib, Gdk, Pango
 
+try:
+    import cairo
+except ImportError:
+    cairo = None
+
 # ---------------------------------------------------------------- Catppuccin Mocha
 BASE = "#1e1e2e"
 MANTLE = "#181825"
@@ -123,6 +128,12 @@ class TaskManager(Gtk.Window):
         self.set_default_size(880, 620)
         self.connect("destroy", Gtk.main_quit)
 
+        # RGBA visual so CSS rgba backgrounds actually translucify (blur shows
+        # through, frosted by Hyprland's decoration blur — same as kitty).
+        visual = Gdk.Screen.get_default().get_rgba_visual()
+        if visual is not None:
+            self.set_visual(visual)
+
         self.prev_ticks = {}
         self.prev_total, self.prev_idle = cpu_times()
         self.procs_cache = []
@@ -141,25 +152,29 @@ class TaskManager(Gtk.Window):
     # ---------------------------------------------------------------- styling
     def apply_css(self):
         css = f"""
-        window {{ background-color: {BASE}; }}
-        * {{ color: {TEXT}; font-size: 13px; }}
+        window {{ background-color: rgba(30, 30, 46, 0.86); }}
+        * {{
+            color: {TEXT};
+            font-size: 13px;
+            font-family: "JetBrains Mono", "Fira Code", "DejaVu Sans Mono", monospace;
+        }}
         .tm-header {{ padding: 10px 14px 6px 14px; }}
         .tm-search {{
-            background-color: {SURFACE0};
+            background-color: rgba(49, 50, 68, 0.75);
             color: {TEXT};
             border: 1px solid {SURFACE1};
             border-radius: 8px;
             padding: 6px 10px;
         }}
-        notebook {{ background-color: {BASE}; }}
-        notebook header {{ background-color: {MANTLE}; }}
+        notebook {{ background-color: rgba(24, 24, 37, 0.72); }}
+        notebook header {{ background-color: rgba(24, 24, 37, 0.80); }}
         .tm-list, scrolledwindow {{
-            background-color: {MANTLE};
+            background-color: rgba(24, 24, 37, 0.66);
             border-radius: 10px;
             border: 1px solid {SURFACE0};
         }}
         treeview {{
-            background-color: {MANTLE};
+            background-color: rgba(24, 24, 37, 0.62);
             color: {TEXT};
         }}
         treeview:hover {{ background-color: {SURFACE0}; }}
@@ -168,7 +183,7 @@ class TaskManager(Gtk.Window):
             color: {TEXT};
         }}
         treeview header button {{
-            background-color: {SURFACE0};
+            background-color: rgba(49, 50, 68, 0.85);
             color: {SUBTEXT};
             border: none;
             border-right: 1px solid {MANTLE};
@@ -176,9 +191,9 @@ class TaskManager(Gtk.Window):
             font-weight: bold;
         }}
         levelbar block.filled {{ background-color: {BLUE}; border-radius: 3px; }}
-        levelbar block.empty {{ background-color: {SURFACE0}; border-radius: 3px; }}
+        levelbar block.empty {{ background-color: rgba(49, 50, 68, 0.6); border-radius: 3px; }}
         .tm-btn {{
-            background-color: {SURFACE0};
+            background-color: rgba(49, 50, 68, 0.85);
             color: {TEXT};
             border: 1px solid {SURFACE1};
             border-radius: 8px;
@@ -193,7 +208,7 @@ class TaskManager(Gtk.Window):
         }}
         .tm-btn-danger:hover {{ background-color: #f5a0b8; }}
         .tm-statusbar {{
-            background-color: {MANTLE};
+            background-color: rgba(24, 24, 37, 0.82);
             color: {OVERLAY};
             font-size: 11px;
             padding: 4px 10px;
@@ -219,7 +234,7 @@ class TaskManager(Gtk.Window):
 
         self.search = Gtk.SearchEntry()
         self.search.get_style_context().add_class("tm-search")
-        self.search.set_placeholder_text("Search processes…")
+        self.search.set_placeholder_text("$ grep processes…")
         self.search.connect("search-changed", lambda _e: self.refresh_tree())
         header.pack_end(self.search, False, False, 0)
         vbox.pack_start(header, False, False, 0)
