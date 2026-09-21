@@ -169,6 +169,18 @@ class TaskManager(Gtk.Window):
         box, grid, flowbox, flowboxchild, label, stack, notebook, scrolledwindow,
         viewport, separator, levelbar trough {{ background-color: transparent; }}
 
+        /* Adwaita paints buttons/entries with background-image GRADIENTS that sit
+           on top of background-color — kill them everywhere or white shows */
+        button, entry, spinbutton {{
+            background-image: none;
+            box-shadow: none;
+            text-shadow: none;
+            -gtk-icon-shadow: none;
+            outline: none;
+        }}
+        button:active, button:hover, button:focus, button:checked,
+        button:disabled {{ background-image: none; box-shadow: none; }}
+
         .tm-header {{ padding: 10px 14px 6px 14px; }}
         .tm-search {{
             background-color: rgba(49, 50, 68, 0.55);
@@ -215,6 +227,7 @@ class TaskManager(Gtk.Window):
             padding: 7px 14px;
         }}
         .tm-btn:hover {{ background-color: rgba(69, 71, 90, 0.85); }}
+        .tm-btn:active, .tm-btn:focus {{ background-color: rgba(69, 71, 90, 0.95); }}
         .tm-btn-danger {{
             background-color: {RED};
             color: {BASE};
