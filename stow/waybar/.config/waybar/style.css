@@ -97,6 +97,45 @@ window#waybar {
     min-width: 22px; /* Force-centers the standalone icon */
 }
 
+/* --- Caffeine Mode (idle inhibitor) --- */
+#custom-caffeine {
+    min-width: 22px;
+    background-color: #1e1e2e;
+    padding: 0 10px;
+    margin: 4px 2px;
+    border-radius: 12px;
+}
+
+/* Active: steaming coffee — teal accent + steam glow pulse */
+#custom-caffeine.active {
+    color: #94e2d5;
+    background-color: rgba(148, 226, 213, 0.15);
+    animation-name: caffeine-steam;
+    animation-duration: 2s;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+}
+
+@keyframes caffeine-steam {
+    0% {
+        color: #94e2d5;
+        box-shadow: none;
+    }
+    50% {
+        color: #ffffff;
+        box-shadow: 0 0 12px rgba(148, 226, 213, 0.55);
+    }
+    100% {
+        color: #94e2d5;
+        box-shadow: none;
+    }
+}
+
+/* Inactive: sleeping zzz — dimmed */
+#custom-caffeine.inactive {
+    color: #6c7086;
+}
+
 #custom-dunst.unread {
     background-color: #cba6f7;
     color: #1e1e2e;

@@ -5,7 +5,7 @@
     "spacing": 4,
     "modules-left": ["hyprland/workspaces", "cpu", "memory", "network"],
     "modules-center": ["clock"],
-    "modules-right": ["bluetooth", "custom/notification", "pulseaudio", "battery", "tray"],
+    "modules-right": ["bluetooth", "custom/notification", "custom/caffeine", "pulseaudio", "battery", "tray"],
 
     // --- Network Module with Globe and Speeds ---
     "network": {
@@ -21,6 +21,17 @@
         "on-click": "~/.local/bin/mako-wofi",
         "on-click-right": "makoctl dismiss",
         "tooltip-format": "Left-click: Open notification history\nRight-click: Dismiss latest notification"
+    },
+
+    // --- Caffeine Mode (idle inhibitor for hypridle) ---
+    "custom/caffeine": {
+        "exec": "~/.config/waybar/scripts/caffeine.sh status",
+        "return-type": "json",
+        "interval": 10,
+        // SIGRTMIN+8 triggers instant re-run — caffeine.sh sends it on every toggle
+        "signal": 8,
+        "on-click": "~/.config/waybar/scripts/caffeine.sh toggle",
+        "format": "{}"
     },
 
     // --- Bluetooth Module Configuration ---

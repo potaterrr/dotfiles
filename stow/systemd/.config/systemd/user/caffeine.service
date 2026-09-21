@@ -1,0 +1,13 @@
+[Unit]
+Description=Caffeine mode (idle inhibitor for hypridle)
+# Don't block shutdown — the inhibitor lock is idle:sleep, not shutdown.
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/systemd-inhibit --what=idle:sleep --who=Caffeine --why="Keep screen awake" --mode=block sleep infinity
+# If caffeine is left on, release the lock cleanly when the session ends.
+TimeoutStopSec=2
+KillMode=control-group
+
+[Install]
+# Started on demand by ~/.config/waybar/scripts/caffeine.sh (systemd-run fallback) — no enable needed
