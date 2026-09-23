@@ -13,7 +13,7 @@ DOTFILES_BASE="$(cd "$DOTFILES_BASE" 2>/dev/null && pwd -P || printf %s "$DOTFIL
 TARGET_DIR="$(cd "$STOW_TARGET" 2>/dev/null && pwd -P || printf %s "$STOW_TARGET")"
 DOTFILES_DIR="$DOTFILES_BASE/stow"
 
-ALL_PACKAGES=(bash fastfetch nvim starship hypr waybar wofi gtk)
+ALL_PACKAGES=(bash fastfetch nvim starship hypr waybar wofi wlogout gtk)
 # Default for non-interactive runs (override with: PACKAGES="bash nvim" ./install.sh -y)
 DEFAULT_PACKAGES=(bash nvim starship fastfetch)
 
@@ -177,6 +177,7 @@ if [ ${#SELECTED_PACKAGES[@]} -eq 0 ]; then
             "hypr" "Hyprland window manager setup" OFF \
             "waybar" "Waybar status bar" OFF \
             "wofi" "Wofi application launcher" OFF \
+            "wlogout" "Wlogout power menu (lock / logout / reboot)" OFF \
             "gtk" "GTK cursor theme (Bibata Modern Ice)" OFF \
             3>&1 1>&2 2>&3) || { echo "Installation cancelled by user."; exit 0; }
         # shellcheck disable=SC2206
@@ -246,6 +247,7 @@ if [ -n "$PKG_INSTALL" ]; then
                               python3 python3-gobject python3-cairo ;;
             waybar)    install_pkgs waybar dunst ;;
             wofi)      install_pkgs wofi ;;
+            wlogout)   install_pkgs wlogout ;;
             gtk)       install_pkgs bibata-cursor-theme
                        # Fallback: fetch Bibata Modern Ice from GitHub releases
                        # when this distro doesn't package it (user-level install)

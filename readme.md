@@ -14,7 +14,9 @@
 
 ## 📸 Overview
 
-A clean, lightweight, and reproducible dotfiles setup designed for seamless deployment across multiple Linux distributions (Debian/Ubuntu, Arch Linux, and Fedora) on both desktop workstations and servers.
+A clean, lightweight, and reproducible dotfiles setup designed for seamless deployment across six Linux distro families (Debian/Ubuntu, Fedora, Arch, openSUSE, Alpine, Void) on both desktop workstations and servers — installed end-to-end with a single command: `curl -fsSL https://potaterrr.github.io/install | sh`.
+
+**Tested on:** Lenovo ThinkPad E14 Gen 1 · Intel Core i7-10510U · 16 GB RAM · Debian 13 (trixie)
 
 ---
 
@@ -32,6 +34,7 @@ Configurations are isolated into individual modular packages under the `stow/` d
 | **`waybar`** | Custom Waybar status bar layout with caffeine mode (💤/☕ idle inhibitor) |
 | **`systemd`** | `caffeine.service` user unit — auto-installed with the `waybar` package |
 | **`wofi`** | Wofi application launcher configuration |
+| **`wlogout`** | Wlogout power menu — lock, logout, suspend, reboot, shutdown (potato icon set) |
 | **`gtk`** | Bibata Modern Ice cursor theme for GTK3/GTK4 apps |
 
 ---
@@ -158,3 +161,18 @@ everywhere — no more apt-only aliases:
 | `search <term>` | Search repos |
 | `pkg_update` / `pkg_install` / ... | Underlying functions, usable in scripts |
 
+---
+
+## 🗑️ Uninstalling
+
+Every deployed file is a symlink into this repo, so removal is clean. From the
+repo root, unstow any package (repeat per package, or use `-D` with the same
+paths the installer used):
+
+```bash
+stow -d stow -t "$HOME" -D <package>   # e.g. bash, nvim, waybar
+```
+
+Files that the installer backed up on first install are still there — restore
+any of them by dropping the `.pre-stow.<timestamp>` suffix. Packages pulled in
+by the installer can be removed with your distro's package manager.
