@@ -130,6 +130,10 @@ pkg_name() {
     case "$PKG_MGR:$1" in
         *:hypr)    echo "hyprland" ;;
         apt:brave) echo "brave-browser" ;;
+        apt:dunst) echo "dunst" ;;
+        apt:ripgrep) echo "ripgrep" ;;
+        apt:aria2) echo "aria2" ;;
+        pacman:brave) echo "brave-browser" ;;
         *)         echo "$1" ;;
     esac
 }
@@ -238,12 +242,13 @@ if [ -n "$PKG_INSTALL" ]; then
 
     for pkg in "${SELECTED_PACKAGES[@]}"; do
         case "$pkg" in
-            bash)      install_pkgs aria2 ;;                                  # download() helper
+#aria2 now installed with bash package (ripgrep too)
+            bash)      install_pkgs aria2 ripgrep ;;
             nvim)      install_pkgs nvim ripgrep make unzip git ;;
             starship)  install_pkgs starship ;;
             fastfetch) install_pkgs fastfetch ;;
             hypr)      install_pkgs hyprland hyprpaper hyprlock hypridle hyprshot wlogout \
-                              kitty yazi btop brave brightnessctl pipewire wireplumber dunst qt6ct \
+                              kitty yazi btop brightnessctl pipewire wireplumber dunst qt6ct \
                               python3 python3-gobject python3-cairo ;;
             waybar)    install_pkgs waybar dunst ;;
             wofi)      install_pkgs wofi ;;
