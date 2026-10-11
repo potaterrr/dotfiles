@@ -4,6 +4,9 @@ if command -v fastfetch >/dev/null 2>&1; then
     if [ -f "$HOME/.config/fastfetch/groups/debian" ]; then
         fastfetch --config groups/debian
     else
-        fastfetch  # uses ~/.config/fastfetch/config.jsonc
+        fastfetch # uses ~/.config/fastfetch/config.jsonc
     fi
 fi
+
+# Initialize zoxide
+eval "$(zoxide init bash)"
