@@ -127,7 +127,7 @@ fi
 LOGO="$DISTRO.png"
 PKG_FMT="$(pkg_format "$DISTRO")"
 
-if [ "$quiet" -eq 0 ]; then log "distro=$DISTRO  wm=$WM  logo=$LOGO  pkg_fmt=$PKG_FMT"; fi
+if [ "$quiet" -eq 0 ]; then log "regenerating fastfetch config for $DISTRO + $WM"; fi
 
 # Validate assets exist
 if [ ! -f "$SHARE_IMAGES/$LOGO" ]; then
@@ -135,129 +135,62 @@ if [ ! -f "$SHARE_IMAGES/$LOGO" ]; then
     LOGO="debian.png"
 fi
 
-# Pick preset file based on WM
-if [ "$WM" = "hypr" ]; then
+# Choose the souravas preset to model config.jsonc on.
+# Prefer os/<distro> (matches fastfetch --config os/debian), then
+# hypr/<distro>, groups/<distro>, then the archlinux fallback.
+if [ -f "$SHARE_PRESETS/os/$DISTRO.jsonc" ]; then
+    PRESET_FILE="$SHARE_PRESETS/os/$DISTRO.jsonc"
+    PRESET_LABEL="os/$DISTRO"
+elif [ -f "$SHARE_PRESETS/hypr/$DISTRO.jsonc" ]; then
     PRESET_FILE="$SHARE_PRESETS/hypr/$DISTRO.jsonc"
-    if [ ! -f "$PRESET_FILE" ]; then
-        warn "preset not found: $PRESET_FILE — falling back to hypr/hypr.jsonc"
-        PRESET_FILE="$SHARE_PRESETS/hypr/hypr.jsonc"
-    fi
-else
+    PRESET_LABEL="hypr/$DISTRO"
+elif [ -f "$SHARE_PRESETS/groups/$DISTRO.jsonc" ]; then
     PRESET_FILE="$SHARE_PRESETS/groups/$DISTRO.jsonc"
-    if [ ! -f "$PRESET_FILE" ]; then
-        warn "preset not found: $PRESET_FILE — falling back to groups/groups (any)"
-        PRESET_FILE="$SHARE_PRESETS/groups/archlinux.jsonc"
-    fi
+    PRESET_LABEL="groups/$DISTRO"
+else
+    PRESET_FILE="$SHARE_PRESETS/hypr/archlinux.jsonc"
+    PRESET_LABEL="hypr/archlinux (fallback)"
 fi
 
 if [ ! -f "$PRESET_FILE" ]; then
-    err "no preset at $PRESET_FILE — aborting"
+    err "no preset found for $DISTRO — aborting"
     exit 1
 fi
 
-if [ "$quiet" -eq 0 ]; then log "preset=$PRESET_FILE"; fi
-
-# ---- generate config.jsonc ---------------------------------------------------
-# We build a self-contained config: souravas logos + our own grouped modules.
-# This keeps one file (fastfetch only loads config.jsonc by default) while
-# still pulling from the souravas image set and adapting modules per distro.
+if [ "$quiet" -eq 0 ]; then log "preset=$PRESET_LABEL"; fi
 
 cat > "$CONFIG.tmp" <<ENDCONFIG
-{
-    "\$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json",
-    "logo": {
-        "source": "$SHARE_IMAGES/$LOGO",
-        "type": "kitty",
-        "height": 20,
-        "padding": {
-            "top": 2
-        }
-    },
-    "display": {
-        "separator": " "
-    },
-    "modules": [
-        "break",
-        "break",
-        {
-            "type": "custom",
-            "format": "\u001b[90m\u273f  \u001b[31m\u273f  \u001b[32m\u273f  \u001b[33m\u273f  \u001b[34m\u273f  \u001b[35m\u273f  \u001b[36m\u273f  \u001b[37m\u273f"
-        },
-        "break",
-        {
-            "type": "title",
-            "keyWidth": 10
-        },
-        "break",
-        {
-            "type": "os",
-            "key": "\uFD03 ",
-            "keyColor": "34"
-        },
-        {
-            "type": "kernel",
-            "key": "\uF029 ",
-            "keyColor": "34"
-        },
-        {
-            "type": "packages",
-            "format": "$PKG_FMT",
-            "key": "\uEAB9 ",
-            "keyColor": "34"
-        },
-        {
-            "type": "shell",
-            "key": "\uF020 ",
-            "keyColor": "34"
-        },
-        {
-            "type": "terminal",
-            "key": "\uF6D6 ",
-            "keyColor": "34"
-        },
-        {
-            "type": "wm",
-            "key": "\uF0C1 ",
-            "keyColor": "34"
-        },
-        {
-            "type": "cursor",
-            "key": "\uE823 ",
-            "keyColor": "34"
-        },
-        {
-            "type": "terminalfont",
-            "key": "\uF121 ",
-            "keyColor": "34"
-        },
-        {
-            "type": "uptime",
-            "key": "\uE5C5 ",
-            "keyColor": "34"
-        },
-        {
-            "type": "datetime",
-            "format": "{1}-{3}-{11}",
-            "key": "\uF4C5 ",
-            "keyColor": "34"
-        },
-        {
-            "type": "media",
-            "key": "\uE925 ",
-            "keyColor": "34"
-        },
-        {
-            "type": "player",
-            "key": "\uF26C ",
-            "keyColor": "34"
-        },
-        "break",
-        {
-            "type": "custom",
-            "format": "\u001b[90m\u273f  \u001b[31m\u273f  \u001b[32m\u273f  \u001b[33m\u273f  \u001b[34m\u273f  \u001b[35m\u273f  \u001b[36m\u273f  \u001b[37m\u273f"
-        },
-        "break"
-    ]
+{// generated from souravas presets/$PRESET_LABEL
+ "\$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json",
+ "logo": {
+     "source": "$SHARE_IMAGES/$LOGO",
+     "type": "kitty",
+     "height": 20,
+     "padding": { "top": 2 }
+ },
+ "display": { "separator": " " },
+ "modules": [
+     "break", "break",
+     { "type": "custom", "format": "\u001b[90m\u273f  \u001b[31m\u273f  \u001b[32m\u273f  \u001b[33m\u273f  \u001b[34m\u273f  \u001b[35m\u273f  \u001b[36m\u273f  \u001b[37m\u273f" },
+     "break",
+     { "type": "title", "keyWidth": 10 },
+     "break",
+     { "type": "os",            "key": "\uFD03 ", "keyColor": "34" },
+     { "type": "kernel",        "key": "\uF029 ", "keyColor": "34" },
+     { "type": "packages",      "format": "$PKG_FMT", "key": "\uEAB9 ", "keyColor": "34" },
+     { "type": "shell",         "key": "\uF020 ", "keyColor": "34" },
+     { "type": "terminal",      "key": "\uF6D6 ", "keyColor": "34" },
+     { "type": "wm",            "key": "\uF0C1 ", "keyColor": "34" },
+     { "type": "cursor",        "key": "\uE823 ", "keyColor": "34" },
+     { "type": "terminalfont",  "key": "\uF121 ", "keyColor": "34" },
+     { "type": "uptime",        "key": "\uE5C5 ", "keyColor": "34" },
+     { "type": "datetime",      "format": "{1}-{3}-{11}", "key": "\uF4C5 ", "keyColor": "34" },
+     { "type": "media",         "key": "\uE925 ", "keyColor": "34" },
+     { "type": "player",        "key": "\uF26C ", "keyColor": "34" },
+     "break",
+     { "type": "custom", "format": "\u001b[90m\u273f  \u001b[31m\u273f  \u001b[32m\u273f  \u001b[33m\u273f  \u001b[34m\u273f  \u001b[35m\u273f  \u001b[36m\u273f  \u001b[37m\u273f" },
+     "break"
+ ]
 }
 ENDCONFIG
 
@@ -269,4 +202,4 @@ if [ "$dry_run" -eq 1 ]; then
 fi
 
 mv "$CONFIG.tmp" "$CONFIG"
-log "wrote $CONFIG"
+if [ "$quiet" -eq 0 ]; then log "wrote $CONFIG (preset: $PRESET_LABEL)"; fi
