@@ -332,3 +332,23 @@ done
 log "Dotfiles setup complete!"
 echo "    Next: start a new shell (or run 'source ~/.bashrc') to load the bash config."
 echo "    Package commands (update/install/remove/search) now work on this distro."
+
+# Ensure ~/.local/bin is on PATH so scripts like regenerate-fastfetch work.
+if [ -d "$TARGET_DIR/.local/bin" ]; then
+    case ":$PATH:" in
+        *":$TARGET_DIR/.local/bin:"*) ;;
+        *)
+            # Best-effort: append to .bashrc if not already there.
+            if [ -f "$TARGET_DIR/.bashrc" ]; then
+                if ! grep -q 'export PATH="$HOME/.local/bin:$PATH"' "$TARGET_DIR/.bashrc" 2>/dev/null; then
+                    printf '\n# Add ~/.local/bin to PATH\nif [ -d "$HOME/.local/bin" ]; then\n    export PATH="$HOME/.local/bin:$PATH"\nfi\n' >> "$TARGET_DIR/.bashrc"
+                    log "Added ~/.local/bin to PATH in $TARGET_DIR/.bashrc"
+                else
+                    log "~/.local/bin already in $TARGET_DIR/.bashrc PATH"
+                fi
+            else
+                log "~/.bashrc not found at $TARGET_DIR/.bashrc; add PATH export manually"
+            fi
+            ;;
+    esac
+fi
