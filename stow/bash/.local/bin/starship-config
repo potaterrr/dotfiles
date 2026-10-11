@@ -44,47 +44,51 @@ _write_bool() {
     fi
     if grep -qE "^[[:space:]]*${key}[[:space:]]*=" "$file"; then
         # replace in place (best-effort for toml-style key = "value" / key = true)
-        perl -i -pe 's/^[ \t]*'\"${key}\"'[ \t]*=.*$/"\t${key} = ${value}"/e' "$file" 2>/dev/null \
+        perl -i -pe 's/^[ \t]*'"\"${key}\"'"[ \t]*=.*$/"\t${key} = ${value}"/e' "$file" 2>/dev/null \
             || sed -i -E "s/^([[:space:]]*${key}[[:space:]]*=[[:space:]]*).*/\1${value}/" "$file"
     else
         printf '\n[%s]\n%s = %s\n' "$(basename "$file" .toml)" "$key" "$value" >> "$file"
     fi
 }
 
+BULLET_TRAIN_URL="https://raw.githubusercontent.com/julienc91/starship-bullet-train/refs/heads/main/starship.toml"
+BULLET_TRAIN_LOCAL="${STARSHIP_CONFIG:-$HOME/.config/starship.toml}"
+
+apply_bullet_train() {
+    if ! command -v starship >/dev/null 2>&1; then
+        echo "starship-config: starship not found; install it first" >&2
+        exit 1
+    fi
+
+    # Prefer the remote preset verbatim; fall back to best-effort local rewrite.
+    if curl -fsSL "$BULLET_TRAIN_URL" -o "$BULLET_TRAIN_LOCAL.tmp" 2>/dev/null; then
+        if head -n 1 "$BULLET_TRAIN_LOCAL.tmp" | grep -qE '^\s*(add_newline|starship|format)'; then
+            mv "$BULLET_TRAIN_LOCAL.tmp" "$BULLET_TRAIN_LOCAL"
+            echo "starship-config: applied bullet-train preset from $BULLET_TRAIN_URL -> $BULLET_TRAIN_LOCAL"
+            return 0
+        fi
+        rm -f "$BULLET_TRAIN_LOCAL.tmp"
+    fi
+
+    echo "starship-config: could not fetch bullet-train preset; applying best-effort local overrides" >&2
+    if [ ! -f "$BULLET_TRAIN_LOCAL" ]; then
+        echo "starship-config: $BULLET_TRAIN_LOCAL missing and offline; run 'starship config' or supply a starship.toml" >&2
+        exit 1
+    fi
+
+    _write_bool "$BULLET_TRAIN_LOCAL" "add_newline" false
+    for mod in aws azure gcp openstack docker_context terraform kubectl helm php perl ruby
+    do
+        if grep -qE "^[[:space:]]*\[${mod}\]" "$BULLET_TRAIN_LOCAL"; then
+            _write_bool "$BULLET_TRAIN_LOCAL" "${mod}.disabled" true
+        fi
+    done
+    echo "starship-config: applied best-effort bullet-train-ish prefs to $BULLET_TRAIN_LOCAL"
+}
+
 case "$THEME" in
     bullet-train|bt)
-        # Bullet Train is a Zsh theme but we approximate the spirit in Starship:
-        #   - concise segments, no heavy icons by default
-        #   - git branch first, then python/rust/node only when relevant
-        #   - exit code shown on failure
-        #   - execution time for slow commands
-        STARShip_FILE="${STARSHIP_CONFIG:-$HOME/.config/starship.toml}"
-        if ! command -v starship >/dev/null 2>&1; then
-            echo "starship-config: starship not found; install it first" >&2
-            exit 1
-        fi
-
-        # Ensure a config file exists
-        if [ ! -f "$STARShip_FILE" ]; then
-            starship config >/dev/null 2>&1 || true
-            if [ ! -f "$STARShip_FILE" ]; then
-                echo "starship-config: could not create $STARShip_FILE" >&2
-                exit 1
-            fi
-        fi
-
-        # Reflect bullet-train-ish preferences
-        _write_bool "$STARSHIP_FILE" "add_newline" false
-        _write_bool "$STARSHIP_FILE" "format_exists" "  "
-        # Disable a lot of noisy modules by default (bullet train only shows what matters)
-        for mod in aws azure gcp openstack azure docker_context terraform kubectl helm
-        do
-            if grep -qE "^[[:space:]]*\\[${mod}\\]" "$STARSHIP_FILE"; then
-                _write_bool "$STARSHIP_FILE" "${mod}.disabled" true
-            fi
-        done
-
-        echo "starship-config: applied bullet-train-ish prefs to $STARSHIP_FILE"
+        apply_bullet_train
         ;;
     *)
         echo "starship-config: unknown theme '$THEME' (supported: bullet-train)" >&2
