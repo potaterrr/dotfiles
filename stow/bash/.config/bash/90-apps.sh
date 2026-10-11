@@ -9,7 +9,7 @@ if command -v regenerate-fastfetch >/dev/null 2>&1; then
 fi
 
 if command -v fastfetch >/dev/null 2>&1; then
-    fastfetch --config os/debian
+    fastfetch --config groups/debian
 fi
 
 # Initialize zoxide
