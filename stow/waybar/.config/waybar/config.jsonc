@@ -7,13 +7,13 @@
         "hyprland/workspaces",
         "cpu",
         "memory",
-            // --- Network Module ---
-        "network"
+        "network#speed"
     ],
     "modules-center": [
         "clock"
     ],
     "modules-right": [
+        "network#ssid",
         "bluetooth",
         "custom/notification",
         "custom/caffeine",
@@ -22,11 +22,24 @@
         "tray"
     ],
         // --- Network Module ---
-    "network": {
-        "format-wifi": "󰤯  󰈇 {bandwidthDownBytes}  ↑ {bandwidthUpBytes}",
-        "format-ethernet": "󰈀  󰈇 {bandwidthDownBytes}  ↑ {bandwidthUpBytes}",
-        "format-disconnected": "󰤭  Disconnected",
+    "network#ssid": {
+        "format-wifi": "{icon} {essid}",
+        "format-icons": [
+            "󰤟",
+            "󰤢",
+            "󰤥",
+            "󰤨"
+        ],
+        "format-ethernet": "󰈀 Ethernet",
+        "format-disconnected": "󰖪 Disconnected",
         "interval": 1
+    },
+    "network#speed": {
+        "format-wifi": "↓ {bandwidthDownBytes}  ↑ {bandwidthUpBytes}",
+        "format-ethernet": "↓ {bandwidthDownBytes}  ↑ {bandwidthUpBytes}",
+        "format-disconnected": "↓ 0 B/s  ↑ 0 B/s",
+        "interval": 1,
+        "tooltip": false
     },
         // --- Mako Notification Module ---
     "custom/notification": {
@@ -42,7 +55,7 @@
         "interval": 10,
         "signal": 8,
         "on-click": "~/.config/waybar/scripts/caffeine.sh toggle",
-        "format": ""
+        "format": "{text}"
     },
         // --- Bluetooth Module Configuration ---
     "bluetooth": {
@@ -64,7 +77,15 @@
     },
         // --- Module Configurations ---
     "hyprland/workspaces": {
-        "format": "{name}",
+        "format": "{icon}",
+        "format-icons": {
+            "1": "󰖟", // browser
+            "2": "󰆍", // terminal
+            "3": "󰉋", // files
+            "4": "󰇚", // Motrix / downloads
+            "default": "󰄯"
+        },
+        "sort-by": "number",
         "persistent-workspaces": {
             "*": [
                 1,

@@ -10,4 +10,4 @@ TimeoutStopSec=2
 KillMode=control-group
 
 [Install]
-# Started on demand by ~/.config/waybar/scripts/caffeine.sh (systemd-run fallback) — no enable needed
+# Started on demand by ~/.config/waybar/scripts/caffeine.sh — no enable needed

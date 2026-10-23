@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+
+# Fetch notifications list and check if empty
+notifs=$(makoctl list)
+if [ -z "$notifs" ] || [ "$notifs" = "[]" ]; then
+    notify-send "Mako" "No missed notifications"
+    exit 0
+fi
+
+# Parse notifications safely, fallback to generic text if fields vary
+selected=$(makoctl list | jq -r '.data[]? | "\(.id): \(.summary.data // .summary) - \(.body.data // .body)"' 2>/dev/null || makoctl list | jq -r '.[]? | "\(.id): \(.summary) - \(.body)"')
+
+if [ -z "$selected" ] || [ "$selected" = "null" ]; then
+    # Fallback debug line if jq fails entirely
+    selected=$(makoctl list | wofi --dmenu --prompt "Notifications (Raw)" --width 600 --height 400)
+else
+    selected=$(echo "$selected" | wofi --dmenu --prompt "Notifications" --width 600 --height 400)
+fi
+
+if [ -n "$selected" ]; then
+    # Extract the ID (everything before the first colon)
+    id=$(echo "$selected" | cut -d':' -f1 | tr -d '[:space:]')
+    if [ -n "$id" ]; then
+        makoctl invoke -i "$id"
+    fi
+fi

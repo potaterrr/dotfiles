@@ -35,8 +35,7 @@ window#waybar {
 #memory,
 #network,
 #pulseaudio,
-#tray,
-#custom-dunst {
+#tray {
     padding: 0 14px;
     margin: 5px 3px;
     border-radius: 12px;
@@ -44,19 +43,23 @@ window#waybar {
     border: 1px solid rgba(157, 124, 216, 0.25);
 }
 
-/* --- Workspaces: Nord Themed --- */
+/* --- Workspaces: Tokyo Night --- */
 #workspaces {
     background-color: transparent;
     margin: 5px 3px;
 }
 
 #workspaces button {
-    padding: 0 10px;
-    margin: 0 2px;
+    padding: 0 7px;
+    margin: 0 1px;
     border-radius: 8px;
     color: @text;
     background-color: transparent;
     font-weight: 500;
+}
+
+#workspaces button.empty {
+    color: #565f89;
 }
 
 #workspaces button:hover {
@@ -101,6 +104,11 @@ window#waybar {
 /* --- Right Modules --- */
 #pulseaudio { color: @cyan; }
 #network { color: @blue; }
+
+#network.speed {
+    color: @text;
+    min-width: 120px;
+}
 #battery { color: @green; }
 #battery.warning { color: @yellow; }
 #battery.critical {
@@ -113,11 +121,6 @@ window#waybar {
 
 #tray { background-color: @background; }
 
-/* --- Custom Notification Bell Modules --- */
-#custom-dunst {
-    min-width: 22px; /* Force-centers the standalone icon */
-}
-
 /* --- Caffeine Mode (idle inhibitor) --- */
 #custom-caffeine {
     min-width: 34px;
@@ -125,7 +128,7 @@ window#waybar {
     margin: 5px 3px;
     border-radius: 12px;
     /* Same background whether on or off — only the icon color changes.
-       Matches the other pill modules (Nord base). */
+       Matches the other pill modules (Tokyo Night base). */
     background-color: @base;
 }
 
@@ -158,41 +161,10 @@ window#waybar {
     color: #565f89;
 }
 
-#custom-dunst.unread {
-    background-color: @purple;
-    color: @base;
-    font-weight: bold;
-    animation-name: bell-pulse;
-    animation-duration: 1.5s;
-    animation-iteration-count: infinite;
-    animation-timing-function: ease-in-out;
-}
-
-#custom-dunst.empty {
-    background-color: @surface;
-    color: #565f89;
-}
-
 /* --- Animation Keyframes --- */
 @keyframes blink {
     to {
         background-color: @red;
-        color: @base;
-    }
-}
-
-@keyframes bell-pulse {
-    0% {
-        background-color: @purple;
-        color: @base;
-    }
-    50% {
-        background-color: @red; 
-        color: @base;
-        box-shadow: 0 0 10px rgba(191, 97, 106, 0.6);
-    }
-    100% {
-        background-color: @purple;
         color: @base;
     }
 }

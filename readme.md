@@ -31,11 +31,19 @@ Configurations are isolated into individual modular packages under the `stow/` d
 | **`starship`** | Minimalist cross-shell prompt preset |
 | **`fastfetch`** | Catppuccin-themed system info (boxed layout, potato logo, kitty graphics + ASCII fallback) |
 | **`hypr`** | Hyprland dynamic tiling window manager setup (incl. hypridle, hyprlock, cursor env) |
-| **`waybar`** | Custom Waybar status bar layout with caffeine mode (💤/☕ idle inhibitor) |
+| **`waybar`** | Custom Waybar status bar layout with caffeine mode (󰾪/󰅶 idle inhibitor) |
 | **`systemd`** | `caffeine.service` user unit — auto-installed with the `waybar` package |
 | **`wofi`** | Wofi application launcher configuration |
 | **`wlogout`** | Wlogout power menu — lock, logout, suspend, reboot, shutdown (potato icon set) |
 | **`gtk`** | Bibata Modern Ice cursor theme for GTK3/GTK4 apps |
+| **`kitty`** | Kitty terminal configuration |
+
+The installer also has an **`apps`** group for the desktop application set:
+Brave, Nemo (default GUI file manager), Motrix, opencode, kitty, and yazi.
+Brave and Motrix are installed from their official repositories/releases; Nemo
+and the XDG desktop portals are installed from distro packages; opencode uses
+its official installer. Selecting `apps` also sets Nemo as the default
+`inode/directory` handler.
 
 ---
 
@@ -94,18 +102,20 @@ official GitHub release tarball (user-level, `~/.local/share/icons/`).
 
 ### Waybar status bar (the `waybar` package)
 
-Catppuccin Mocha pill layout — workspaces/CPU/RAM/network on the left, clock in
-the center, bluetooth/notifications/volume/battery/tray on the right.
+Tokyo Night pill layout — workspaces/CPU/RAM/speed on the left, clock in
+the center, SSID/bluetooth/notifications/caffeine/volume/battery/tray on the right.
+Notifications use **mako**; left-clicking the bell opens the history through
+`mako-wofi` (installed with the `bash` and `waybar` packages).
 
-**Caffeine mode (☕/💤)** — keeps the screen awake by holding a logind
-`idle:sleep` inhibitor lock (a transient `caffeine.service` user unit), which
+**Caffeine mode (󰾪/󰅶)** — keeps the screen awake by holding a logind
+`idle:sleep` inhibitor lock (the `caffeine.service` user unit), which
 `hypridle` respects via `ignore_dbus_inhibit = false`. Toggle it with `Super+C`
 or by clicking the bar icon:
 
 | State | Icon | Meaning |
 | :--- | :--- | :--- |
-| Off | 💤 (dimmed) | Normal idle schedule runs |
-| On | ☕ (teal, breathing glow) | All idle timers paused |
+| Off | 󰾪 (dimmed) | Normal idle schedule runs |
+| On | 󰅶 (teal, breathing glow) | All idle timers paused |
 
 - Icon state syncs instantly (SIGRTMIN+8) no matter how caffeine is toggled —
   keybind, bar click, `make toggle`, or CLI.
@@ -135,8 +145,8 @@ Non-interactive options (great for fresh bare-metal installs):
 
 ```bash
 ./install.sh -y                     # default set: bash, nvim, starship, fastfetch
-./install.sh -a                     # everything
-PACKAGES="bash waybar" ./install.sh -y
+./install.sh -a                     # everything (including apps)
+PACKAGES="bash waybar apps" ./install.sh -y
 ./install.sh -p "bash hypr wofi"    # explicit list
 ./install.sh -h                     # all options
 ```

@@ -8,12 +8,13 @@ path_add() {
     esac
 }
 
-# added in reverse so precedence matches: .local/bin > go/bin > .opencode/bin
+# Each path is prepended, so call them in ascending priority order:
+# the highest-priority path ends up first in PATH.
 [ -d /opt/nvim-linux-x86_64/bin ] && path_add /opt/nvim-linux-x86_64/bin
-path_add "$HOME/.opencode/bin"
-path_add "$HOME/go/bin"
-path_add "$HOME/.local/bin"
-path_add "$HOME/.cargo/bin"
+[ -d "$HOME/.opencode/bin" ] && path_add "$HOME/.opencode/bin"
+[ -d "$HOME/go/bin" ] && path_add "$HOME/go/bin"
+[ -d "$HOME/.local/bin" ] && path_add "$HOME/.local/bin"
+[ -d "$HOME/.cargo/bin" ] && path_add "$HOME/.cargo/bin"
 
 # Node: use the newest locally-installed version under ~/.local/opt (no hardcoding)
 for node_bin in "$HOME"/.local/opt/node-v*-linux-x64/bin; do

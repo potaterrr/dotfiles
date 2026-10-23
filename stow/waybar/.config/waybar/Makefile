@@ -1,10 +1,10 @@
 # Makefile for the Caffeine waybar module
 #
 # Caffeine keeps the screen awake by holding a logind idle:sleep inhibitor
-# lock (respected by hypridle). Toggle via the waybar icon (💤 / ☕) or Super+C.
+# lock (respected by hypridle). Toggle via the waybar icon (󰾪 / 󰅶) or Super+C.
 #
 # Targets:
-#   make install    - enable everything (script perms, systemd unit, reloads)
+#   make install    - enable everything (script perms, systemd unit, reload)
 #   make uninstall  - remove caffeine from the running session
 #   make toggle     - flip caffeine on/off (same as clicking the icon)
 #   make on / off   - explicitly enable / disable
@@ -21,10 +21,7 @@ help:
 install:
 	@chmod +x "$(SCRIPT)"
 	@systemctl --user daemon-reload
-	@pkill -x waybar 2>/dev/null || true
-	@sleep 0.5
-	@hyprctl dispatch exec waybar >/dev/null 2>&1 || nohup waybar >/dev/null 2>&1 &
-	@hyprctl reload >/dev/null 2>&1 || true
+	@pkill -SIGUSR2 -x waybar 2>/dev/null || true
 	@echo "Caffeine installed: waybar icon + Super+C keybind are live."
 
 uninstall:

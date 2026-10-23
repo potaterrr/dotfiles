@@ -7,9 +7,6 @@ case $- in
       *) return;;
 esac
 
-# ~/.local/bin first so scripts like regenerate-fastfetch are found.
-path_add "$HOME/.local/bin" 2>/dev/null || true
-
 # Load config fragments in numeric order
 for frag in "$HOME"/.config/bash/*.sh; do
     [ -f "$frag" ] && . "$frag"

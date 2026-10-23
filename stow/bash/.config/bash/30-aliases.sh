@@ -8,6 +8,9 @@ alias search='pkg_search'
 
 # general shortcuts
 alias c='clear'
+alias ll='ls -alF'
+alias la='ls -A'
+alias l='ls -CF'
 alias ..='cd ..'
 alias reload='source ~/.bashrc'
 alias basher='${EDITOR:-nano} ~/.config/bash/'
