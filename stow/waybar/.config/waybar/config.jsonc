@@ -3,48 +3,58 @@
     "position": "top",
     "height": 38,
     "spacing": 4,
-    "modules-left": ["hyprland/workspaces", "cpu", "memory", "network"],
-    "modules-center": ["clock"],
-    "modules-right": ["bluetooth", "custom/notification", "custom/caffeine", "pulseaudio", "battery", "tray"],
-
-    // --- Network Module with Globe and Speeds ---
+    "modules-left": [
+        "hyprland/workspaces",
+        "cpu",
+        "memory",
+            // --- Network Module ---
+        "network"
+    ],
+    "modules-center": [
+        "clock"
+    ],
+    "modules-right": [
+        "bluetooth",
+        "custom/notification",
+        "custom/caffeine",
+        "pulseaudio",
+        "battery",
+        "tray"
+    ],
+        // --- Network Module ---
     "network": {
-        "format-wifi": "🌐 ⬇️ {bandwidthDownBytes} ⬆️ {bandwidthUpBytes}",
-        "format-ethernet": "🌐 ⬇️ {bandwidthDownBytes} ⬆️ {bandwidthUpBytes}",
-        "format-disconnected": "⚠️ Disconnected",
+        "format-wifi": "󰤯  󰈇 {bandwidthDownBytes}  ↑ {bandwidthUpBytes}",
+        "format-ethernet": "󰈀  󰈇 {bandwidthDownBytes}  ↑ {bandwidthUpBytes}",
+        "format-disconnected": "󰤭  Disconnected",
         "interval": 1
     },
-
-    // --- Mako Notification Module ---
+        // --- Mako Notification Module ---
     "custom/notification": {
-        "format": "🔔",
+        "format": "󰂚",
         "on-click": "~/.local/bin/mako-wofi",
         "on-click-right": "makoctl dismiss",
         "tooltip-format": "Left-click: Open notification history\nRight-click: Dismiss latest notification"
     },
-
-    // --- Caffeine Mode (idle inhibitor for hypridle) ---
+        // --- Caffeine Mode (idle inhibitor for hypridle) ---
     "custom/caffeine": {
         "exec": "~/.config/waybar/scripts/caffeine.sh status",
         "return-type": "json",
         "interval": 10,
-        // SIGRTMIN+8 triggers instant re-run — caffeine.sh sends it on every toggle
         "signal": 8,
         "on-click": "~/.config/waybar/scripts/caffeine.sh toggle",
-        "format": "{}"
+        "format": ""
     },
-
-    // --- Bluetooth Module Configuration ---
+        // --- Bluetooth Module Configuration ---
     "bluetooth": {
         "format": "{icon}",
-        "format-disabled": "⚫ Off",
-        "format-off": "⚫ Off",
-        "format-on": "🔵 On",
-        "format-connected": "🟢 {device_alias}",
-        "format-connected-battery": "🟢 {device_alias} 🔋 {device_battery_percentage}%",
+        "format-disabled": "󰂲 Off",
+        "format-off": "󰂲 Off",
+        "format-on": "󰂯 On",
+        "format-connected": "󰂯 {device_alias}",
+        "format-connected-battery": "󰂯 {device_alias} ⚡ {device_battery_percentage}%",
         "format-icons": {
-            "enabled": "🔵",
-            "disabled": "⚫"
+            "enabled": "󰂯",
+            "disabled": "󰂲"
         },
         "tooltip-format": "{controller_alias}\t{controller_address}\n\n{num_connections} connected",
         "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{num_connections} connected\n\n{device_enumerate}",
@@ -52,24 +62,28 @@
         "tooltip-format-enumerate-connected-battery": "{device_alias}\t{device_address}\t{device_battery_percentage}%",
         "on-click": "blueman-manager"
     },
-
-    // --- Module Configurations ---
+        // --- Module Configurations ---
     "hyprland/workspaces": {
         "format": "{name}",
         "persistent-workspaces": {
-            "*": [1, 2, 3, 4]
+            "*": [
+                1,
+                2,
+                3,
+                4
+            ]
         }
     },
     "clock": {
-        "format": "⏰ {:%H:%M  📅 %b %d, %y}",
+        "format": "{:%H:%M | %b %d, %Y}",
         "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>"
     },
     "cpu": {
-        "format": "💻 {usage}%",
+        "format": "󰍛 {usage}%",
         "tooltip": false
     },
     "memory": {
-        "format": "📊 {used:0.1f}G"
+        "format": "󰍟 {used:0.1f}G"
     },
     "battery": {
         "states": {
@@ -78,15 +92,25 @@
             "critical": 15
         },
         "format": "{icon} {capacity}%",
-        "format-charging": "🔌⚡ {capacity}%",
-        "format-plugged": "🔌 {capacity}%",
-        "format-icons": ["🪫", "🔋", "🔋", "🔋", "🔋"]
+        "format-charging": "󰂄 {capacity}%",
+        "format-plugged": "󰂄 {capacity}%",
+        "format-icons": [
+            "󰁺",
+            "󰁻",
+            "󰁼",
+            "󰁽",
+            "󰁹"
+        ]
     },
     "pulseaudio": {
         "format": "{icon} {volume}%",
-        "format-muted": "🔇 Muted",
+        "format-muted": "󰝟 Muted",
         "format-icons": {
-            "default": ["🔈", "🔉", "🔊"]
+            "default": [
+                "󰕿",
+                "󰖀",
+                "󰕾"
+            ]
         },
         "on-click": "pavucontrol"
     },

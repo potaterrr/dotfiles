@@ -93,11 +93,11 @@ cmd_toggle() {
 
 cmd_status() {
     if is_active; then
-        # Active: steaming coffee, highlighted via CSS class.
-        printf '{"text": "☕", "class": "active", "tooltip": "Caffeine ON — screen stays awake\\n(click or Super+C to disable)"}'
+        # Active: circle with check (on), highlighted via CSS class.
+        printf '{"text": "", "class": "active", "tooltip": "Caffeine ON — screen stays awake\\n(click or Super+C to disable)"}'
     else
-        # Inactive: sleeping zzz, dimmed via CSS class.
-        printf '{"text": "💤", "class": "inactive", "tooltip": "Caffeine OFF — normal idle timer\\n(click or Super+C to keep awake)"}'
+        # Inactive: circle with minus (off), dimmed via CSS class.
+        printf '{"text": "", "class": "inactive", "tooltip": "Caffeine OFF — normal idle timer\\n(click or Super+C to keep awake)"}'
     fi
 }
 

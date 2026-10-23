@@ -1,58 +1,20 @@
 #!/usr/bin/env bash
-# ~/.local/bin/starship-config — applies a starship theme preset for bash
-# Usage: starship-config [theme]
-#   theme defaults to bullet-train if not given.
+# ~/.local/bin/starship-config — applies the starship bullet-train preset
+# for bash (and other shells). The preset is fetched verbatim from
+# julienc91/starship-bullet-train so the dotfiles repo stays in sync with
+# upstream.
+#
+# Usage:
+#   starship-config [theme]
+#     theme defaults to bullet-train if not given.
 set -euo pipefail
 
 THEME="${1:-bullet-train}"
 
-_read_bool() {
-    local file="$1" key="$2" default="${3:-false}"
-    # Starship toml uses true/false (lower case) for bool fields.
-    if ! [ -f "$file" ]; then
-        return 1
-    fi
-    # best-effort toml parse: skip comments, look for key = value
-    local val
-    val=$(awk -F '=' -v key="$key" '
-        $1 ~ /^[[:space:]]*\[.*\]/ { in_section=0 }
-        $1 ~ /\[/ { in_section=1; next }
-        {
-            gsub(/^[[:space:]]+|[[:space:]]+$/, "")
-            if ($1 == key && NF >= 2) {
-                v=$2; gsub(/^[[:space:]]+|[[:space:]]+$/, "", v)
-                print v
-                exit
-            }
-        }
-    ' "$file" | head -n 1)
-    if [ -z "$val" ]; then
-        echo "$default"
-        return 0
-    fi
-    case "$val" in
-        true|on|yes|1) echo true ;;
-        *)              echo false ;;
-    esac
-}
-
-_write_bool() {
-    local file="$1" key="$2" value="$3"
-    if ! [ -f "$file" ]; then
-        echo "starship-config: $file missing — run: starship config" >&2
-        return 1
-    fi
-    if grep -qE "^[[:space:]]*${key}[[:space:]]*=" "$file"; then
-        # replace in place (best-effort for toml-style key = "value" / key = true)
-        perl -i -pe 's/^[ \t]*'"\"${key}\"'"[ \t]*=.*$/"\t${key} = ${value}"/e' "$file" 2>/dev/null \
-            || sed -i -E "s/^([[:space:]]*${key}[[:space:]]*=[[:space:]]*).*/\1${value}/" "$file"
-    else
-        printf '\n[%s]\n%s = %s\n' "$(basename "$file" .toml)" "$key" "$value" >> "$file"
-    fi
-}
+DOTFILES_STARSHIP_TOML="${HOME}/git-projects/dotfiles/stow/starship/.config/starship.toml"
+LIVE_STARSHIP_TOML="${STARSHIP_CONFIG:-$HOME/.config/starship.toml}"
 
 BULLET_TRAIN_URL="https://raw.githubusercontent.com/julienc91/starship-bullet-train/refs/heads/main/starship.toml"
-BULLET_TRAIN_LOCAL="${STARSHIP_CONFIG:-$HOME/.config/starship.toml}"
 
 apply_bullet_train() {
     if ! command -v starship >/dev/null 2>&1; then
@@ -60,30 +22,31 @@ apply_bullet_train() {
         exit 1
     fi
 
-    # Prefer the remote preset verbatim; fall back to best-effort local rewrite.
-    if curl -fsSL "$BULLET_TRAIN_URL" -o "$BULLET_TRAIN_LOCAL.tmp" 2>/dev/null; then
-        if head -n 1 "$BULLET_TRAIN_LOCAL.tmp" | grep -qE '^\s*(add_newline|starship|format)'; then
-            mv "$BULLET_TRAIN_LOCAL.tmp" "$BULLET_TRAIN_LOCAL"
-            echo "starship-config: applied bullet-train preset from $BULLET_TRAIN_URL -> $BULLET_TRAIN_LOCAL"
-            return 0
-        fi
-        rm -f "$BULLET_TRAIN_LOCAL.tmp"
-    fi
-
-    echo "starship-config: could not fetch bullet-train preset; applying best-effort local overrides" >&2
-    if [ ! -f "$BULLET_TRAIN_LOCAL" ]; then
-        echo "starship-config: $BULLET_TRAIN_LOCAL missing and offline; run 'starship config' or supply a starship.toml" >&2
+    # Download the upstream preset.
+    if ! curl -fsSL --max-time 20 "$BULLET_TRAIN_URL" -o /tmp/starship-bullet-train.toml 2>/dev/null; then
+        echo "starship-config: could not fetch bullet-train preset from $BULLET_TRAIN_URL" >&2
         exit 1
     fi
 
-    _write_bool "$BULLET_TRAIN_LOCAL" "add_newline" false
-    for mod in aws azure gcp openstack docker_context terraform kubectl helm php perl ruby
-    do
-        if grep -qE "^[[:space:]]*\[${mod}\]" "$BULLET_TRAIN_LOCAL"; then
-            _write_bool "$BULLET_TRAIN_LOCAL" "${mod}.disabled" true
-        fi
-    done
-    echo "starship-config: applied best-effort bullet-train-ish prefs to $BULLET_TRAIN_LOCAL"
+    # Basic sanity check: first non-empty line should look like a starship toml.
+    if ! head -n 1 /tmp/starship-bullet-train.toml | grep -qE '^\s*(add_newline|starship|format|\[)'; then
+        echo "starship-config: downloaded file does not look like a starship toml; refusing to apply" >&2
+        rm -f /tmp/starship-bullet-train.toml
+        exit 1
+    fi
+
+    # Update the dotfiles source and the live config.
+    if [ -f "$DOTFILES_STARSHIP_TOML" ]; then
+        cp /tmp/starship-bullet-train.toml "$DOTFILES_STARSHIP_TOML"
+        echo "starship-config: updated dotfiles source $DOTFILES_STARSHIP_TOML"
+    else
+        echo "starship-config: dotfiles source missing: $DOTFILES_STARSHIP_TOML" >&2
+    fi
+
+    cp /tmp/starship-bullet-train.toml "$LIVE_STARSHIP_TOML"
+    echo "starship-config: applied bullet-train preset from $BULLET_TRAIN_URL -> $LIVE_STARSHIP_TOML"
+
+    rm -f /tmp/starship-bullet-train.toml
 }
 
 case "$THEME" in
@@ -96,5 +59,9 @@ case "$THEME" in
         ;;
 esac
 
-# Show the effective prompt config summary
+# Show the effective prompt config summary.
 starship config 2>/dev/null | head -n 40 || true
+# NOTE: "ferres" was never found anywhere in this environment (no binary on
+# PATH, no crate on crates.io, no reference in dotfiles, not in the bullet-
+# train repo). If you meant a different tool, tell me which one and I will
+# install or configure it. Otherwise nothing ferres-related is actionable here.
