@@ -1,0 +1,10 @@
+{
+    "buttons_per_row": 3,
+    "fiat": [
+        "USD",
+        "GBP"
+    ],
+    "crypto": {
+        "SOL": "solana"
+    }
+}

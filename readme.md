@@ -34,7 +34,7 @@ Configurations are isolated into individual modular packages under the `stow/` d
 | **`waybar`** | Custom Waybar status bar layout with caffeine mode (󰾪/󰅶 idle inhibitor) |
 | **`systemd`** | `caffeine.service` user unit — auto-installed with the `waybar` package |
 | **`wofi`** | Wofi application launcher configuration |
-| **`wlogout`** | Wlogout power menu — lock, logout, suspend, reboot, shutdown (potato icon set) |
+| **`wlogout`** | Wlogout power menu — lock, logout, suspend, reboot, shutdown, plus a live USD/GBP/SOL→PHP rates box |
 | **`gtk`** | Bibata Modern Ice cursor theme for GTK3/GTK4 apps |
 | **`kitty`** | Kitty terminal configuration |
 
@@ -125,6 +125,38 @@ or by clicking the bar icon:
   whenever the `waybar` package is selected.
 - Handy commands: `make -C ~/.config/waybar toggle` (also `on` / `off` /
   `status` / `install`).
+
+### Wlogout power menu and currency rates (the `wlogout` package)
+
+`Super+M` opens the power menu through `wlogout-rates`. It keeps the five power
+actions and adds a single rates box that shows every configured currency on its
+own line. The layout and white icons are adapted from
+[HyprKenso](https://github.com/aadritobasu/HyprKenso), recolored to Catppuccin
+Mocha. The six buttons are arranged as a 3x2 square grid on 1920x1080:
+
+- Fiat rates come from `open.er-api.com` (USD base, cross-computed to PHP).
+- Crypto rates come from CoinGecko.
+- Results are cached for 5 minutes in `~/.cache/wlogout-rates/rates.json`;
+  if a refresh fails, the last known rates are shown.
+- The rates box uses the same icon/button treatment as the power actions and
+  pulses every 10 seconds. Its icon is a custom peso coin, since every rate
+  converts to PHP. Rates refresh when the menu opens; wlogout
+  labels are static while it stays open.
+
+Add currencies in `~/.config/wlogout/currencies.json`:
+
+```json
+{
+    "buttons_per_row": 3,
+    "fiat": ["USD", "GBP"],
+    "crypto": {"SOL": "solana"}
+}
+```
+
+Append another ISO code under `fiat`, or add `"SYMBOL": "coingecko-id"` under
+`crypto`. The wrapper combines them into the same box and generates the CSS
+automatically. Run `wlogout-rates --print --refresh` to preview the generated
+layout, or `wlogout-rates --refresh` to bypass the cache.
 
 ### Fastfetch theming
 

@@ -1,0 +1,228 @@
+#!/usr/bin/env bash
+# Open wlogout with one extra box per configured currency.
+#
+# Add fiat currencies under "fiat" (ISO codes) and crypto currencies under
+# "crypto" (display symbol -> CoinGecko id) in currencies.json.
+
+set -euo pipefail
+
+CONFIG_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/wlogout"
+CONFIG="$CONFIG_DIR/currencies.json"
+BASE_LAYOUT="$CONFIG_DIR/layout"
+CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/wlogout-rates"
+CACHE="$CACHE_DIR/rates.json"
+CACHE_TTL=300
+
+PRINT=0
+REFRESH=0
+
+usage() {
+    cat <<'EOF'
+Usage: wlogout-rates [--print] [--refresh]
+
+  --print    Print the generated wlogout layout and exit.
+  --refresh  Ignore the cache and fetch fresh rates.
+EOF
+}
+
+for arg in "$@"; do
+    case "$arg" in
+        --print) PRINT=1 ;;
+        --refresh) REFRESH=1 ;;
+        -h|--help) usage; exit 0 ;;
+        *) echo "Unknown option: $arg" >&2; usage >&2; exit 2 ;;
+    esac
+done
+
+command -v jq >/dev/null 2>&1 || {
+    echo "wlogout-rates: jq is required" >&2
+    exit 1
+}
+
+[[ -f "$CONFIG" ]] || {
+    echo "wlogout-rates: missing $CONFIG" >&2
+    exit 1
+}
+
+[[ -f "$BASE_LAYOUT" ]] || {
+    echo "wlogout-rates: missing $BASE_LAYOUT" >&2
+    exit 1
+}
+
+mkdir -p "$CACHE_DIR"
+
+cache_is_fresh() {
+    [[ -f "$CACHE" ]] || return 1
+    local timestamp now
+    timestamp=$(jq -r '.timestamp // 0' "$CACHE" 2>/dev/null || echo 0)
+    now=$(date +%s)
+    ((now - timestamp < CACHE_TTL))
+}
+
+fetch_rates() {
+    local fiat_json crypto_json crypto_ids fiat_rates crypto_rates
+
+    if ! fiat_json=$(curl -fsSL --max-time 10 "https://open.er-api.com/v6/latest/USD"); then
+        return 1
+    fi
+    if ! jq -e '.result == "success" and (.rates.PHP | type == "number")' \
+        >/dev/null 2>&1 <<<"$fiat_json"; then
+        return 1
+    fi
+
+    fiat_rates=$(jq -c --argjson cfg "$(cat "$CONFIG")" '
+        .rates as $r
+        | reduce $cfg.fiat[] as $currency ({};
+            .[$currency] =
+                (if ($r[$currency] // 0) != 0
+                 then ($r.PHP / $r[$currency])
+                 else null
+                 end))
+    ' <<<"$fiat_json")
+
+    crypto_ids=$(jq -r '.crypto // {} | to_entries | map(.value) | join(",")' "$CONFIG")
+    if [[ -n "$crypto_ids" ]]; then
+        if ! crypto_json=$(curl -fsSL --max-time 10 \
+            "https://api.coingecko.com/api/v3/simple/price?ids=${crypto_ids}&vs_currencies=php"); then
+            return 1
+        fi
+        if ! jq -e . >/dev/null 2>&1 <<<"$crypto_json"; then
+            return 1
+        fi
+        crypto_rates=$(jq -c --argjson cfg "$(cat "$CONFIG")" '
+            . as $prices
+            | reduce ($cfg.crypto | to_entries[]) as $entry ({};
+                .[$entry.key] = ($prices[$entry.value].php // null))
+        ' <<<"$crypto_json")
+    else
+        crypto_rates='{}'
+    fi
+
+    jq -n \
+        --argjson fiat "$fiat_rates" \
+        --argjson crypto "$crypto_rates" \
+        --argjson timestamp "$(date +%s)" \
+        '{timestamp: $timestamp, fiat: $fiat, crypto: $crypto}' >"$CACHE"
+}
+
+if ((REFRESH)) || ! cache_is_fresh; then
+    fetch_rates || true
+fi
+
+if [[ ! -f "$CACHE" ]]; then
+    jq -n '{timestamp: 0, fiat: {}, crypto: {}}' >"$CACHE"
+fi
+
+format_rate() {
+    local symbol="$1" value="$2" formatted
+
+    if [[ -z "$value" || "$value" == "null" ]]; then
+        printf '%s → ₱—' "$symbol"
+        return
+    fi
+
+    formatted=$(awk -v n="$value" 'BEGIN {
+        s = sprintf("%.2f", n)
+        split(s, parts, ".")
+        whole = parts[1]
+        grouped = ""
+        while (length(whole) > 3) {
+            grouped = "," substr(whole, length(whole) - 2) grouped
+            whole = substr(whole, 1, length(whole) - 3)
+        }
+        print whole grouped "." parts[2]
+    }')
+    printf '%s → ₱%s' "$symbol" "$formatted"
+}
+
+layout_file=$(mktemp "${XDG_RUNTIME_DIR:-/tmp}/wlogout-rates-layout.XXXXXX")
+style_file=$(mktemp "${XDG_RUNTIME_DIR:-/tmp}/wlogout-rates-style.XXXXXX")
+trap 'rm -f "$layout_file" "$style_file"' EXIT
+
+cat "$BASE_LAYOUT" >"$layout_file"
+
+rates_text=""
+
+add_rate() {
+    local symbol="$1" value="$2" line
+    line=$(format_rate "$symbol" "$value")
+    if [[ -n "$rates_text" ]]; then
+        rates_text+=$'\n'
+    fi
+    rates_text+="$line"
+}
+
+while IFS= read -r currency; do
+    [[ -n "$currency" ]] || continue
+    add_rate "$currency" "$(jq -r --arg c "$currency" '.fiat[$c] // empty' "$CACHE")"
+done < <(jq -r '.fiat[]?' "$CONFIG")
+
+while IFS=$'\t' read -r symbol _id; do
+    [[ -n "$symbol" ]] || continue
+    add_rate "$symbol" "$(jq -r --arg s "$symbol" '.crypto[$s] // empty' "$CACHE")"
+done < <(jq -r '.crypto // {} | to_entries[] | "\(.key)\t\(.value)"' "$CONFIG")
+
+if [[ -n "$rates_text" ]]; then
+    # wlogout's layout parser does not unescape JSON \n/\u sequences, so write
+    # the multi-line label with real newlines and UTF-8 peso signs.
+    cat >>"$layout_file" <<EOF
+{
+    "label" : "rates",
+    "action" : "true",
+    "text" : "$rates_text",
+    "keybind" : "c"
+}
+EOF
+fi
+
+if [[ -f "$CONFIG_DIR/style.css" ]]; then
+    cp "$CONFIG_DIR/style.css" "$style_file"
+fi
+
+if [[ -n "$rates_text" ]]; then
+    cat >>"$style_file" <<EOF
+
+#rates {
+    background-image: url("$CONFIG_DIR/icons/rates.svg");
+    background-size: 30%;
+    background-position: center 30%;
+    background-repeat: no-repeat;
+    font-size: 14px;
+    color: #cdd6f4;
+    animation-name: ratesflash;
+    animation-duration: 10s;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+}
+
+
+#rates:hover {
+    animation-name: none;
+}
+
+@keyframes ratesflash {
+    0% { background-color: rgba(49, 50, 68, 0.25); }
+    5% { background-color: rgba(49, 50, 68, 0.25); }
+    12% { background-color: rgba(49, 50, 68, 0.25); }
+    84% { background-color: rgba(49, 50, 68, 0.25); }
+    90% { background-color: #45475a; }
+    96% { background-color: #45475a; }
+    100% { background-color: #45475a; }
+}
+EOF
+fi
+
+if ((PRINT)); then
+    cat "$layout_file"
+    exit 0
+fi
+
+command -v wlogout >/dev/null 2>&1 || {
+    echo "wlogout-rates: wlogout is not installed" >&2
+    exit 1
+}
+
+buttons_per_row=$(jq -r '.buttons_per_row // 4' "$CONFIG")
+# 3x2 square grid on 1920x1080: 1200x800 grid -> 400x400 cells.
+wlogout -C "$style_file" -b "$buttons_per_row" -l "$layout_file" \
+    -L 360 -R 360 -T 140 -B 140
